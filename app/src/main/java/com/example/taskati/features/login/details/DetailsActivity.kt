@@ -36,7 +36,13 @@ class DetailsActivity : AppCompatActivity(R.layout.activity_details), CommentsAd
             bindDataToViews(dataRecieved)
         }
 
-        detailViewModel.getComments(task.id)
+        detailViewModel.commentSaved.observe(this, Observer {
+            if (it) {
+                onResume()
+                clearEditText()
+            }
+        })
+
         detailViewModel.commentsResponse.observe(this, Observer {
             Log.i(javaClass.simpleName, it.toString())
             commentsAdapter.submitList(it)
@@ -48,6 +54,16 @@ class DetailsActivity : AppCompatActivity(R.layout.activity_details), CommentsAd
             detailViewModel.saveComments(commentTable)
         }
 
+
+    }
+
+    private fun clearEditText() {
+        et_add_comment.text.clear()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        detailViewModel.getComments(task.id)
 
     }
 

@@ -9,5 +9,5 @@ class DetailRepo(var database: TasksDao, var databaseComments: CommentsDao) : ID
     override suspend fun saveCommentToTask(commentsTable: CommentsTable) =
         databaseComments.saveComments(commentsTable)
 
-    override suspend fun getComments(userId:Int): List<CommentsTable> = databaseComments.getAllComments(userId)
+    override suspend fun getComments(): List<CommentsTable> = databaseComments.getAllComments()
 }

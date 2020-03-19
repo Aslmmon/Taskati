@@ -9,8 +9,8 @@ interface CommentsDao {
     @Insert
     suspend fun saveComments(comments: CommentsTable)
 
-    @Query("SELECT * FROM comments_table WHERE id_user = :userID")
-    suspend fun getAllComments(userID:Int): List<CommentsTable>
+    @Query("SELECT * FROM comments_table")
+    suspend fun getAllComments(): List<CommentsTable>
 
 
 //    @Query("DELETE FROM task_table WHERE id = :userId")

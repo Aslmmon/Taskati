@@ -13,13 +13,13 @@ import kotlinx.coroutines.launch
 class DetailsViewModel(var detailRepo: IDetail) : ViewModel() {
 
 
-    private val _deleteTask = MutableLiveData<Boolean>()
-    val deleteTask: LiveData<Boolean>
-        get() = _deleteTask
+//    private val _deleteTask = MutableLiveData<Boolean>()
+//    val deleteTask: LiveData<Boolean>
+//        get() = _deleteTask
 
-    private val _taskSaved = MutableLiveData<Boolean>()
-    val taskSaved: LiveData<Boolean>
-        get() = _taskSaved
+    private val _commentSaved = MutableLiveData<Boolean>()
+    val commentSaved: LiveData<Boolean>
+        get() = _commentSaved
 
 
     private val _commentsResponse = MutableLiveData<List<CommentsTable>>()
@@ -31,6 +31,7 @@ class DetailsViewModel(var detailRepo: IDetail) : ViewModel() {
             try {
                 Log.i(javaClass.simpleName, "save Comment")
                 detailRepo.saveCommentToTask(comment)
+                _commentSaved.postValue(true)
             } catch (t: Throwable) {
                 Log.i(javaClass.simpleName, t.message)
             }
@@ -38,11 +39,11 @@ class DetailsViewModel(var detailRepo: IDetail) : ViewModel() {
     }
 
 
-    fun getComments(userId:Int) {
+    fun getComments(userId: Int) {
         viewModelScope.launch {
             try {
+                _commentsResponse.postValue(detailRepo.getComments())
                 Log.i(javaClass.simpleName, "All Comment")
-                _commentsResponse.postValue(detailRepo.getComments(userId))
             } catch (t: Throwable) {
                 Log.i(javaClass.simpleName, t.message)
             }
