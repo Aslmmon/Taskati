@@ -8,7 +8,7 @@ import org.koin.dsl.module
 
 val repositoriesModule = module {
     single { HomeRepo(get()) as IHome }
-    single { DetailRepo(get()) as IDetail }
+    single { DetailRepo(get(),get()) as IDetail }
 //    single { MainRepo(get()) as IMain }
 
 }

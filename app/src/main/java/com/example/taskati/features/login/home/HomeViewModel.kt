@@ -24,7 +24,6 @@ class HomeViewModel(var homeRepo: IHome) : ViewModel() {
         viewModelScope.launch {
             try {
                 _tasksResponse.postValue(homeRepo.getTasks())
-
             } catch (t: Throwable) {
                 Log.i(javaClass.simpleName, t.message)
             }

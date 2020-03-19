@@ -55,6 +55,7 @@ dependencies {
     implementation pagination.values()
     implementation koin.values()
     implementation coroutine.values()
+    implementation debug.values()
 
 
     // Room
