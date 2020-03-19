@@ -17,7 +17,7 @@ import java.util.concurrent.TimeUnit
 
 private val sLogLevel = HttpLoggingInterceptor.Level.BODY
 
-private const val baseUrl = "BuildConfig.SERVICE_URL"
+private const val baseUrl = "https:google.com"
 
 private fun getLogInterceptor() = HttpLoggingInterceptor().apply { level = sLogLevel }
 

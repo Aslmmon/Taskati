@@ -2,6 +2,7 @@ package com.example.taskati
 
 import android.app.Application
 import android.content.Context
+import com.example.taskati.common.di.databaseModule
 import com.example.taskati.common.di.networkModule
 import com.example.taskati.common.di.repositoriesModule
 import com.example.taskati.common.di.viewModelModule
@@ -24,7 +25,7 @@ class TaskatiApp : Application() {
         startKoin {
             androidContext(this@TaskatiApp)
             androidLogger()
-            modules(listOf(viewModelModule, networkModule, repositoriesModule))
+            modules(listOf(viewModelModule, networkModule, repositoriesModule,databaseModule))
         }
     }
 }
