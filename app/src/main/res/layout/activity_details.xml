@@ -5,58 +5,55 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".features.login.details.DetailsActivity">
-    <com.example.taskati.common.custom.CustomText
-        android:layout_width="0dp"
-        android:id="@+id/custom_done"
-        android:layout_height="wrap_content"
-        app:Title="Done"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        />
+
 
     <com.example.taskati.common.custom.CustomText
+        android:id="@+id/custom_done"
         android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:Title="Done"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <com.example.taskati.common.custom.CustomText
         android:id="@+id/custom_date"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         app:Title="Date"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/custom_done"
         app:layout_constraintEnd_toStartOf="@+id/tv_date"
-        />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/custom_done" />
 
     <TextView
         android:id="@+id/tv_date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        tools:text="December 10 2019"
-        android:textStyle="bold"
-        android:textSize="18sp"
         android:layout_margin="10dp"
-        app:layout_constraintStart_toEndOf="@id/custom_date"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/custom_done"
+        android:textSize="18sp"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@id/custom_date"
-        />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/custom_date"
+        app:layout_constraintTop_toBottomOf="@id/custom_done"
+        tools:text="December 10 2019" />
 
     <com.example.taskati.common.custom.CustomText
-        android:layout_width="0dp"
         android:id="@+id/custom_periority"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         app:Title="Priority"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/custom_date"
         app:layout_constraintEnd_toEndOf="parent"
-        />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/custom_date" />
 
     <com.example.taskati.common.custom.CustomText
-        android:layout_width="0dp"
         android:id="@+id/custom_comments"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         app:Title="Comments"
-        app:layout_constraintStart_toStartOf="@id/custom_periority"
-        app:layout_constraintTop_toBottomOf="@id/custom_periority"
         app:layout_constraintEnd_toEndOf="parent"
-        />
+        app:layout_constraintStart_toStartOf="@id/custom_periority"
+        app:layout_constraintTop_toBottomOf="@id/custom_periority" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

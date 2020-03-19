@@ -1,12 +1,14 @@
 package com.example.taskati.common.di
 
-import com.example.taskati.common.Repo.HomeRepo
-import com.example.taskati.common.Repo.IHome
+import com.example.taskati.common.Repo.DetailRepo.DetailRepo
+import com.example.taskati.common.Repo.DetailRepo.IDetail
+import com.example.taskati.common.Repo.HomeRepo.HomeRepo
+import com.example.taskati.common.Repo.HomeRepo.IHome
 import org.koin.dsl.module
 
 val repositoriesModule = module {
     single { HomeRepo(get()) as IHome }
-//    single { LoginRepo(get()) }
+    single { DetailRepo(get()) as IDetail }
 //    single { MainRepo(get()) as IMain }
 
 }
