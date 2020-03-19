@@ -2,4 +2,7 @@
     <string name="app_name">Taskati</string>
     <string name="username">Username</string>
     <string name="login_title">Login</string>
+    <string name="add_title">add</string>
+    <string name="create_task_title">create Task</string>
+    <string name="task_name_title">Task name</string>
 </resources>
