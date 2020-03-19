@@ -1,4 +1,9 @@
-package com.example.taskati.common.bases//package com.floriaapp.vendor.common.bases
+package com.example.taskati.common.bases
+
+import android.view.View
+import com.homyapplication.common.bases.SafeClickListener
+
+//package com.floriaapp.vendor.common.bases
 //
 //import android.app.Activity
 //import android.app.Dialog
@@ -139,14 +144,14 @@ package com.example.taskati.common.bases//package com.floriaapp.vendor.common.ba
 //
 //}
 //
-//
-//fun View.setSafeOnClickListener(onSafeClick: (View) -> Unit) {
-//    val safeClickListener = SafeClickListener {
-//        onSafeClick(it)
-//    }
-//    setOnClickListener(safeClickListener)
-//}
-//
+
+fun View.setSafeOnClickListener(onSafeClick: (View) -> Unit) {
+    val safeClickListener = SafeClickListener {
+        onSafeClick(it)
+    }
+    setOnClickListener(safeClickListener)
+}
+
 ////
 ////fun NotificationManager.sendNotification(messageBody: String, messageTitle: String, applicationContext: Context) {
 ////    val contentIntent = Intent(applicationContext, OrdersHistoryActivity::class.java)
