@@ -6,6 +6,7 @@ import android.util.Log
 import android.widget.EditText
 import androidx.lifecycle.Observer
 import com.example.taskati.R
+import com.example.taskati.common.Navigation
 import com.example.taskati.common.bases.setSafeOnClickListener
 import com.example.taskati.common.data.db.TaskTable
 import com.example.taskati.features.login.home.adapter.TaskAdapter
@@ -67,5 +68,6 @@ class HomeActivity : AppCompatActivity(R.layout.activity_home), TaskAdapter.Inte
 
     override fun onItemSelected(position: Int, item: TaskTable) {
         Log.i(javaClass.simpleName,item.title)
+        Navigation.goToDetailsActivity(this,item)
     }
 }
