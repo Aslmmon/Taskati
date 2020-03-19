@@ -7,7 +7,7 @@ import androidx.room.PrimaryKey
 
 @Entity(tableName = "task_table")
 data class TaskTable(
-    @PrimaryKey(onConflict = OnConflictStrategy.REPLACE, autoGenerate = true) var id: Int=1,
+    @PrimaryKey(autoGenerate = true) var id: Int,
     @ColumnInfo(name = "title") var title: String,
     @ColumnInfo(name = "date") var date: String,
     @ColumnInfo(name = "done") var isDone: Boolean,

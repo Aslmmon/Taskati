@@ -10,5 +10,5 @@ interface TasksDao {
     suspend fun insert(taks: TaskTable)
 
     @Query("SELECT * FROM task_table ")
-    fun getAllTasks(): List<TaskTable>
+    suspend fun getAllTasks(): List<TaskTable>
 }
