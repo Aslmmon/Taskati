@@ -9,4 +9,9 @@
     <string name="completed_tasks_menu_title">Completed Tasks</string>
     <string name="filter_menu">filter</string>
     <string name="all_tasks">All Tasks</string>
+    <string-array name="periority_array">
+        <item>I</item>
+        <item>II</item>
+        <item>III</item>
+    </string-array>
 </resources>

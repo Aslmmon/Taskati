@@ -56,6 +56,8 @@ dependencies {
     implementation koin.values()
     implementation coroutine.values()
     implementation debug.values()
+    implementation 'org.honorato.multistatetogglebutton:multistatetogglebutton:0.2.2'
+
 
 
     // Room
