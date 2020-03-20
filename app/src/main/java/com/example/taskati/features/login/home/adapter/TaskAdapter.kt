@@ -4,6 +4,7 @@ import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.CompoundButton
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import com.example.taskati.R
@@ -40,7 +41,7 @@ class TaskAdapter(private val interaction: Interaction? = null) :
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (holder) {
             is TaskViewHolder -> {
-                holder.bind(differ.currentList.get(position))
+                holder.bind(differ.currentList[position])
             }
         }
     }
@@ -63,6 +64,10 @@ class TaskAdapter(private val interaction: Interaction? = null) :
             itemView.setOnClickListener {
                 interaction?.onItemSelected(adapterPosition, item)
             }
+            itemView.check.setOnCheckedChangeListener { buttonView, isChecked ->
+                interaction?.onCheckSelected(buttonView, isChecked, item)
+            }
+            itemView.check.isChecked = item.isDone
             itemView.tv_title_task.text = item.title
             itemView.tv_date_task.text = item.date
 
@@ -71,6 +76,12 @@ class TaskAdapter(private val interaction: Interaction? = null) :
 
     interface Interaction {
         fun onItemSelected(position: Int, item: TaskTable)
+        fun onCheckSelected(
+            btn: CompoundButton,
+            isDone: Boolean,
+            item: TaskTable
+        )
+
     }
 }
 

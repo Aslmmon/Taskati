@@ -3,6 +3,7 @@ package com.example.taskati.features.login.home
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.widget.CompoundButton
 import android.widget.EditText
 import androidx.lifecycle.Observer
 import com.example.taskati.R
@@ -70,4 +71,13 @@ class HomeActivity : AppCompatActivity(R.layout.activity_home), TaskAdapter.Inte
         Log.i(javaClass.simpleName,item.title)
         Navigation.goToDetailsActivity(this,item)
     }
+
+    override fun onCheckSelected(btn: CompoundButton, isDone: Boolean, item: TaskTable) {
+        Log.i(javaClass.simpleName,item.title)
+        Log.i(javaClass.simpleName,isDone.toString())
+        homeViewModel.updateDoneTask(item.id,isDone)
+
+    }
+
+
 }

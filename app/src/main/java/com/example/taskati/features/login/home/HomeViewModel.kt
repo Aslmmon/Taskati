@@ -15,9 +15,28 @@ class HomeViewModel(var homeRepo: IHome) : ViewModel() {
     val tasksResponse: LiveData<List<TaskTable>>
         get() = _tasksResponse
 
+    private val _updateTaskResponse = MutableLiveData<Boolean>()
+    val updateTask: LiveData<Boolean>
+        get() = _updateTaskResponse
+
+
     private val _taskSaved = MutableLiveData<Boolean>()
     val taskSaved: LiveData<Boolean>
         get() = _taskSaved
+
+
+    fun updateDoneTask(userId: Int, doneTask: Boolean) {
+        viewModelScope.launch {
+            try {
+                homeRepo.updateDoneTask(userId, doneTask)
+                _updateTaskResponse.postValue(true)
+                Log.i(javaClass.simpleName, "Updated")
+
+            } catch (t: Throwable) {
+                Log.i(javaClass.simpleName, t.message)
+            }
+        }
+    }
 
 
     fun getTaks() {

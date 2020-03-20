@@ -14,6 +14,8 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         android:id="@+id/rv_tasks"
+        tools:listitem="@layout/task_layout"
+        tools:itemCount="3"
         />
 
     <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
