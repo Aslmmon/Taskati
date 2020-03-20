@@ -5,4 +5,7 @@
     <string name="add_title">add</string>
     <string name="create_task_title">create Task</string>
     <string name="task_name_title">Task name</string>
+    <string name="delete_menu_title">delete</string>
+    <string name="completed_tasks_menu_title">Completed Tasks</string>
+    <string name="filter_menu">filter</string>
 </resources>

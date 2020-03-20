@@ -3,8 +3,11 @@ package com.example.taskati.features.login.home
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.Menu
+import android.view.MenuItem
 import android.widget.CompoundButton
 import android.widget.EditText
+import android.widget.Toast
 import androidx.lifecycle.Observer
 import com.example.taskati.R
 import com.example.taskati.common.Navigation
@@ -19,7 +22,7 @@ import org.koin.android.viewmodel.ext.android.viewModel
 class HomeActivity : AppCompatActivity(R.layout.activity_home), TaskAdapter.Interaction {
 
     private val homeViewModel: HomeViewModel by viewModel()
-    lateinit var taskAdapter:TaskAdapter
+    lateinit var taskAdapter: TaskAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,7 +34,7 @@ class HomeActivity : AppCompatActivity(R.layout.activity_home), TaskAdapter.Inte
         })
 
         homeViewModel.taskSaved.observe(this, Observer {
-            if(it) homeViewModel.getTaks()
+            if (it) homeViewModel.getTaks()
         })
 
 
@@ -44,8 +47,9 @@ class HomeActivity : AppCompatActivity(R.layout.activity_home), TaskAdapter.Inte
 
             create_btn.setSafeOnClickListener {
                 dialog.dismiss()
-                val title= taskTitle.text.toString()
-                val task = TaskTable(date = "1", difficulty = 1, isDone = false, title = title,id = 0)
+                val title = taskTitle.text.toString()
+                val task =
+                    TaskTable(date = "1", difficulty = 1, isDone = false, title = title, id = 0)
                 homeViewModel.saveTask(task)
                 //onResume()
             }
@@ -67,15 +71,29 @@ class HomeActivity : AppCompatActivity(R.layout.activity_home), TaskAdapter.Inte
 
     }
 
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        menuInflater.inflate(R.menu.home_menu, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        val id = item.itemId
+        if (id == R.id.action_menu1) {
+            Toast.makeText(this, "eshta", Toast.LENGTH_SHORT).show()
+        }
+        return false
+    }
+
     override fun onItemSelected(position: Int, item: TaskTable) {
-        Log.i(javaClass.simpleName,item.title)
-        Navigation.goToDetailsActivity(this,item)
+        Log.i(javaClass.simpleName, item.title)
+        Navigation.goToDetailsActivity(this, item)
     }
 
     override fun onCheckSelected(btn: CompoundButton, isDone: Boolean, item: TaskTable) {
-        Log.i(javaClass.simpleName,item.title)
-        Log.i(javaClass.simpleName,isDone.toString())
-        homeViewModel.updateDoneTask(item.id,isDone)
+        Log.i(javaClass.simpleName, item.title)
+        Log.i(javaClass.simpleName, isDone.toString())
+        homeViewModel.updateDoneTask(item.id, isDone)
 
     }
 
