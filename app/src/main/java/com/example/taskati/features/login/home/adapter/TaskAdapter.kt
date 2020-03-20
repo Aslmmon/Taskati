@@ -1,5 +1,6 @@
 package com.example.taskati.features.login.home.adapter
 
+import android.util.Log
 import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
@@ -9,7 +10,9 @@ import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import com.example.taskati.R
 import com.example.taskati.common.data.db.TaskTable
+import com.example.taskati.features.login.home.DifficultyLevel
 import kotlinx.android.synthetic.main.task_layout.view.*
+import org.honorato.multistatetogglebutton.ToggleButton
 
 class TaskAdapter(private val interaction: Interaction? = null) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
@@ -67,6 +70,13 @@ class TaskAdapter(private val interaction: Interaction? = null) :
             itemView.check.setOnCheckedChangeListener { buttonView, isChecked ->
                 interaction?.onCheckSelected(buttonView, isChecked, item)
             }
+            itemView.multi_id.setOnValueChangedListener { position ->
+                interaction?.onIndicatorChecked(
+                    position,
+                    item
+                )
+            }
+            itemView.multi_id.value = item.difficulty
             itemView.check.isChecked = item.isDone
             itemView.tv_title_task.text = item.title
             itemView.tv_date_task.text = item.date
@@ -76,11 +86,8 @@ class TaskAdapter(private val interaction: Interaction? = null) :
 
     interface Interaction {
         fun onItemSelected(position: Int, item: TaskTable)
-        fun onCheckSelected(
-            btn: CompoundButton,
-            isDone: Boolean,
-            item: TaskTable
-        )
+        fun onCheckSelected(btn: CompoundButton, isDone: Boolean, item: TaskTable)
+        fun onIndicatorChecked(position: Int, item: TaskTable)
 
     }
 }

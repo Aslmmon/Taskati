@@ -20,6 +20,7 @@ import org.koin.android.viewmodel.ext.android.viewModel
 import java.text.SimpleDateFormat
 import java.util.*
 
+
 class HomeActivity : AppCompatActivity(R.layout.activity_home), TaskAdapter.Interaction {
 
     private val homeViewModel: HomeViewModel by viewModel()
@@ -29,12 +30,11 @@ class HomeActivity : AppCompatActivity(R.layout.activity_home), TaskAdapter.Inte
     val df = SimpleDateFormat("dd-MMM-yyyy")
 
 
-
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         initRecycler()
 
+        //button.
         homeViewModel.tasksResponse.observe(this, Observer {
             Log.i(javaClass.simpleName, it.toString())
             doneList = it.filter { it.isDone }
@@ -43,7 +43,7 @@ class HomeActivity : AppCompatActivity(R.layout.activity_home), TaskAdapter.Inte
         })
 
         homeViewModel.taskSaved.observe(this, Observer {
-            if (it) homeViewModel.getTaks()
+            if (it) homeViewModel.getTasks()
         })
 
 
@@ -60,7 +60,13 @@ class HomeActivity : AppCompatActivity(R.layout.activity_home), TaskAdapter.Inte
                 val formattedDate: String = df.format(date)
                 val title = taskTitle.text.toString()
                 val task =
-                    TaskTable(date = formattedDate, difficulty = 1, isDone = false, title = title, id = 0)
+                    TaskTable(
+                        date = formattedDate,
+                        difficulty = 1,
+                        isDone = false,
+                        title = title,
+                        id = 0
+                    )
                 homeViewModel.saveTask(task)
             }
             dialog.setContentView(view)
@@ -77,7 +83,7 @@ class HomeActivity : AppCompatActivity(R.layout.activity_home), TaskAdapter.Inte
 
     override fun onResume() {
         super.onResume()
-        homeViewModel.getTaks()
+        homeViewModel.getTasks()
 
     }
 
@@ -104,11 +110,21 @@ class HomeActivity : AppCompatActivity(R.layout.activity_home), TaskAdapter.Inte
     }
 
     override fun onCheckSelected(btn: CompoundButton, isDone: Boolean, item: TaskTable) {
-        Log.i(javaClass.simpleName, item.title)
-        Log.i(javaClass.simpleName, isDone.toString())
         homeViewModel.updateDoneTask(item.id, isDone)
 
     }
 
+    override fun onIndicatorChecked(position: Int, item: TaskTable) {
+        Log.i(javaClass.simpleName, item.title)
+        homeViewModel.updatePeriorityTask(item.id,position)
+//
+    }
 
+
+}
+
+enum class DifficultyLevel(val level: Int) {
+    FIRST(0),
+    SECOND(1),
+    THIRD(2)
 }

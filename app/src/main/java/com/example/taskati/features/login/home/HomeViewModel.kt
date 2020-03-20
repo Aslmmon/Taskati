@@ -25,12 +25,24 @@ class HomeViewModel(var homeRepo: IHome) : ViewModel() {
         get() = _taskSaved
 
 
+
+    fun updatePeriorityTask(userId: Int, periority: Int) {
+        viewModelScope.launch {
+            try {
+                homeRepo.updatePeriorityTask(userId,periority)
+                Log.i(javaClass.simpleName, "Updated Indicator")
+            } catch (t: Throwable) {
+                Log.i(javaClass.simpleName, t.message)
+            }
+        }
+    }
+
     fun updateDoneTask(userId: Int, doneTask: Boolean) {
         viewModelScope.launch {
             try {
                 homeRepo.updateDoneTask(userId, doneTask)
                 _updateTaskResponse.postValue(true)
-                Log.i(javaClass.simpleName, "Updated")
+                Log.i(javaClass.simpleName, "Updated ")
 
             } catch (t: Throwable) {
                 Log.i(javaClass.simpleName, t.message)
@@ -39,7 +51,7 @@ class HomeViewModel(var homeRepo: IHome) : ViewModel() {
     }
 
 
-    fun getTaks() {
+    fun getTasks() {
         viewModelScope.launch {
             try {
                 _tasksResponse.postValue(homeRepo.getTasks())

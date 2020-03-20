@@ -18,4 +18,7 @@ interface TasksDao {
     @Query("UPDATE task_table SET done = :done WHERE id = :userId")
     suspend fun updateDoneTask(userId: Int, done: Boolean)
 
+    @Query("UPDATE task_table SET difficulty = :diffic WHERE id = :userId")
+    suspend fun updatePeriorityTask(userId: Int, diffic: Int)
+
 }
