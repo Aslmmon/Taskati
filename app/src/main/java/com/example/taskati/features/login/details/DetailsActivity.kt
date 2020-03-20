@@ -92,7 +92,7 @@ class DetailsActivity : AppCompatActivity(R.layout.activity_details), CommentsAd
             detailViewModel.deleteTask(task)
             Toast.makeText(this, "eshta", Toast.LENGTH_SHORT).show()
         }
-        return false
+        return true
     }
 
     override fun onItemSelected(position: Int, item: CommentsTable) {

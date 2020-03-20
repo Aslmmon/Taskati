@@ -1,12 +1,12 @@
 package com.example.taskati.features.login.home
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.CompoundButton
 import android.widget.EditText
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import com.example.taskati.R
 import com.example.taskati.common.Navigation
@@ -17,6 +17,8 @@ import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.button.MaterialButton
 import kotlinx.android.synthetic.main.activity_home.*
 import org.koin.android.viewmodel.ext.android.viewModel
+import java.text.SimpleDateFormat
+import java.util.*
 
 class HomeActivity : AppCompatActivity(R.layout.activity_home), TaskAdapter.Interaction {
 
@@ -24,6 +26,9 @@ class HomeActivity : AppCompatActivity(R.layout.activity_home), TaskAdapter.Inte
     lateinit var taskAdapter: TaskAdapter
     lateinit var doneList: List<TaskTable>
     lateinit var allTasks: List<TaskTable>
+    val df = SimpleDateFormat("dd-MMM-yyyy")
+
+
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -51,11 +56,12 @@ class HomeActivity : AppCompatActivity(R.layout.activity_home), TaskAdapter.Inte
 
             create_btn.setSafeOnClickListener {
                 dialog.dismiss()
+                val date = Calendar.getInstance().time
+                val formattedDate: String = df.format(date)
                 val title = taskTitle.text.toString()
                 val task =
-                    TaskTable(date = "1", difficulty = 1, isDone = false, title = title, id = 0)
+                    TaskTable(date = formattedDate, difficulty = 1, isDone = false, title = title, id = 0)
                 homeViewModel.saveTask(task)
-                //onResume()
             }
             dialog.setContentView(view)
             dialog.show()
@@ -83,7 +89,7 @@ class HomeActivity : AppCompatActivity(R.layout.activity_home), TaskAdapter.Inte
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         val id = item.itemId
-        when(id){
+        when (id) {
             R.id.action_all_tasks -> taskAdapter.submitList(allTasks)
             R.id.action_done_tasks -> taskAdapter.submitList(doneList)
         }
