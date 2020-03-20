@@ -34,20 +34,15 @@ class HomeActivity : AppCompatActivity(R.layout.activity_home), TaskAdapter.Inte
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         initRecycler()
-
         homeViewModel.tasksResponse.observe(this, Observer {
             Log.i(javaClass.simpleName, it.toString())
             filterDonelist(it)
             allTasks = it
             taskAdapter.submitList(it)
         })
-
-
         homeViewModel.taskSaved.observe(this, Observer {
             if (it) getTasks()
         })
-
-
         fab_btn_add.setOnClickListener {
             val dialog = BottomSheetDialog(this)
             val view = layoutInflater.inflate(R.layout.taks_bottom_sheet, null)
@@ -80,14 +75,14 @@ class HomeActivity : AppCompatActivity(R.layout.activity_home), TaskAdapter.Inte
         rv_tasks.apply {
             taskAdapter = TaskAdapter(this@HomeActivity)
             adapter = taskAdapter
+         //   taskAdapter.notifyDataSetChanged()
         }
     }
 
     override fun onResume() {
         super.onResume()
+        initRecycler()
         getTasks()
-        toast("onResume called ")
-
     }
 
     private fun getTasks() {
@@ -95,7 +90,6 @@ class HomeActivity : AppCompatActivity(R.layout.activity_home), TaskAdapter.Inte
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        // Inflate the menu; this adds items to the action bar if it is present.
         menuInflater.inflate(R.menu.home_menu, menu)
         return true
     }
@@ -106,8 +100,6 @@ class HomeActivity : AppCompatActivity(R.layout.activity_home), TaskAdapter.Inte
             R.id.action_all_tasks -> getTasks()
             R.id.action_done_tasks -> { taskAdapter.submitList(doneList) }
         }
-
-
         return true
     }
 
@@ -125,17 +117,8 @@ class HomeActivity : AppCompatActivity(R.layout.activity_home), TaskAdapter.Inte
     override fun onIndicatorChecked(position: Int, item: TaskTable) {
         Log.i(javaClass.simpleName, item.title)
         homeViewModel.updatePeriorityTask(item.id, position)
-        getTasks()
-//        taskAdapter.notifyDataSetChanged()
-
-//
     }
 
 
 }
 
-enum class DifficultyLevel(val level: Int) {
-    FIRST(0),
-    SECOND(1),
-    THIRD(2)
-}

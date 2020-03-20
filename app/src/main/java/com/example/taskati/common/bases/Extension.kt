@@ -1,7 +1,15 @@
 package com.example.taskati.common.bases
 
+import android.app.AlertDialog
+import android.content.Context
 import android.view.View
+import android.widget.Toast
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.homyapplication.common.bases.SafeClickListener
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.cancel
+import kotlinx.coroutines.launch
 
 //package com.floriaapp.vendor.common.bases
 //
@@ -108,42 +116,38 @@ import com.homyapplication.common.bases.SafeClickListener
 //    return this?.message.toString()
 //}
 //
-//fun ViewModel.launchDataLoad(
-//        execution: suspend CoroutineScope.() -> Unit,
-//        errorReturned: suspend CoroutineScope.(Throwable) -> Unit,
-//        finallyBlock: (suspend CoroutineScope.() -> Unit)? = null) {
-//
-//    this.viewModelScope.launch {
-//        try {
-//            execution()
-//        } catch (e: Throwable) {
-//            errorReturned(e)
-//        } finally {
-//            finallyBlock?.invoke(this)
-//        }
-//    }
-//}
-//
-//
-//val Editable.checkIfZeroValueEnterd: Boolean
-//    get() {
-//        val txtInInteger = this.toString().toInt()
-//        if (txtInInteger == 0) {
-//            return true
-//        }
-//        return false
-//    }
-//
-//fun showSnack(view: View?, message: String) {
-//    view?.let { viewSnack ->
-//        val snack = Snackbar.make(viewSnack, message, Snackbar.LENGTH_SHORT)
-//        snack.setTextColor(Color.YELLOW)
-//        snack.show()
-//    }
-//
-//
-//}
-//
+fun ViewModel.launchDataLoad(
+    execution: suspend CoroutineScope.() -> Unit,
+    errorReturned: suspend CoroutineScope.(Throwable) -> Unit,
+    finallyBlock: (suspend CoroutineScope.() -> Unit)? = null) {
+
+    this.viewModelScope.launch {
+        try {
+            execution()
+        } catch (e: Throwable) {
+            errorReturned(e)
+        } finally {
+            finallyBlock?.invoke(this)
+
+        }
+    }
+}
+
+
+
+fun Context.showAlertDialog(launchFunction: () -> Unit) {
+    val builder = AlertDialog.Builder(this)
+    builder.setTitle("App background color")
+    builder.setMessage("Are you Sure to Delete This Task ?")
+    builder.setPositiveButton("YES") { dialog, which ->
+        launchFunction()
+    }
+    builder.setNegativeButton("No") { dialog, which ->
+        dialog.dismiss()
+    }
+    val dialog: AlertDialog = builder.create()
+    dialog.show()
+}
 
 fun View.setSafeOnClickListener(onSafeClick: (View) -> Unit) {
     val safeClickListener = SafeClickListener {

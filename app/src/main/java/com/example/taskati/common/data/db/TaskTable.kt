@@ -1,11 +1,8 @@
 package com.example.taskati.common.data.db
 
-import android.os.Parcelable
 import androidx.room.ColumnInfo
 import androidx.room.Entity
-import androidx.room.OnConflictStrategy
 import androidx.room.PrimaryKey
-import kotlinx.android.parcel.Parcelize
 import java.io.Serializable
 
 

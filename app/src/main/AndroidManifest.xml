@@ -10,7 +10,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".features.login.details.DetailsActivity"></activity>
+        <activity
+            android:name=".features.login.details.DetailsActivity"
+            android:parentActivityName=".features.login.home.HomeActivity"/>
         <activity android:name=".features.login.home.HomeActivity" />
         <activity android:name=".features.login.LoginActivity">
             <intent-filter>

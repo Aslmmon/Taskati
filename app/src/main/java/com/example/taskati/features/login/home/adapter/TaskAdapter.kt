@@ -10,7 +10,6 @@ import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import com.example.taskati.R
 import com.example.taskati.common.data.db.TaskTable
-import com.example.taskati.features.login.home.DifficultyLevel
 import kotlinx.android.synthetic.main.task_layout.view.*
 import org.honorato.multistatetogglebutton.ToggleButton
 
