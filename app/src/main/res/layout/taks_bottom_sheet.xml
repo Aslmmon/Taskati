@@ -20,6 +20,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/btn_create_task"
+        app:layout_constraintBottom_toBottomOf="parent"
         android:text="@string/create_task_title"
         app:layout_constraintEnd_toEndOf="@id/et_create_task"
         app:layout_constraintStart_toStartOf="@id/et_create_task"

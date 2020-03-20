@@ -57,6 +57,8 @@ dependencies {
     implementation coroutine.values()
     implementation debug.values()
     implementation 'org.honorato.multistatetogglebutton:multistatetogglebutton:0.2.2'
+    implementation "org.jetbrains.anko:anko-appcompat-v7-commons:0.10.8"
+
 
 
 

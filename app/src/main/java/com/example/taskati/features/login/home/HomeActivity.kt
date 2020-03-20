@@ -16,6 +16,7 @@ import com.example.taskati.features.login.home.adapter.TaskAdapter
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.button.MaterialButton
 import kotlinx.android.synthetic.main.activity_home.*
+import org.jetbrains.anko.toast
 import org.koin.android.viewmodel.ext.android.viewModel
 import java.text.SimpleDateFormat
 import java.util.*
@@ -34,16 +35,16 @@ class HomeActivity : AppCompatActivity(R.layout.activity_home), TaskAdapter.Inte
         super.onCreate(savedInstanceState)
         initRecycler()
 
-        //button.
         homeViewModel.tasksResponse.observe(this, Observer {
             Log.i(javaClass.simpleName, it.toString())
-            doneList = it.filter { it.isDone }
+            filterDonelist(it)
             allTasks = it
             taskAdapter.submitList(it)
         })
 
+
         homeViewModel.taskSaved.observe(this, Observer {
-            if (it) homeViewModel.getTasks()
+            if (it) getTasks()
         })
 
 
@@ -52,26 +53,27 @@ class HomeActivity : AppCompatActivity(R.layout.activity_home), TaskAdapter.Inte
             val view = layoutInflater.inflate(R.layout.taks_bottom_sheet, null)
             val create_btn = view.findViewById<MaterialButton>(R.id.btn_create_task)
             val taskTitle = view.findViewById<EditText>(R.id.et_create_task)
-
-
             create_btn.setSafeOnClickListener {
                 dialog.dismiss()
                 val date = Calendar.getInstance().time
                 val formattedDate: String = df.format(date)
                 val title = taskTitle.text.toString()
-                val task =
-                    TaskTable(
-                        date = formattedDate,
-                        difficulty = 1,
-                        isDone = false,
-                        title = title,
-                        id = 0
-                    )
+                val task = TaskTable(
+                    date = formattedDate,
+                    difficulty = 0,
+                    isDone = false,
+                    title = title,
+                    id = 0
+                )
                 homeViewModel.saveTask(task)
             }
             dialog.setContentView(view)
             dialog.show()
         }
+    }
+
+    private fun filterDonelist(it: List<TaskTable>) {
+        doneList = it.filter { it.isDone }
     }
 
     private fun initRecycler() {
@@ -83,8 +85,13 @@ class HomeActivity : AppCompatActivity(R.layout.activity_home), TaskAdapter.Inte
 
     override fun onResume() {
         super.onResume()
-        homeViewModel.getTasks()
+        getTasks()
+        toast("onResume called ")
 
+    }
+
+    private fun getTasks() {
+        homeViewModel.getTasks()
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -96,8 +103,8 @@ class HomeActivity : AppCompatActivity(R.layout.activity_home), TaskAdapter.Inte
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         val id = item.itemId
         when (id) {
-            R.id.action_all_tasks -> taskAdapter.submitList(allTasks)
-            R.id.action_done_tasks -> taskAdapter.submitList(doneList)
+            R.id.action_all_tasks -> getTasks()
+            R.id.action_done_tasks -> { taskAdapter.submitList(doneList) }
         }
 
 
@@ -111,12 +118,16 @@ class HomeActivity : AppCompatActivity(R.layout.activity_home), TaskAdapter.Inte
 
     override fun onCheckSelected(btn: CompoundButton, isDone: Boolean, item: TaskTable) {
         homeViewModel.updateDoneTask(item.id, isDone)
+        getTasks()
 
     }
 
     override fun onIndicatorChecked(position: Int, item: TaskTable) {
         Log.i(javaClass.simpleName, item.title)
-        homeViewModel.updatePeriorityTask(item.id,position)
+        homeViewModel.updatePeriorityTask(item.id, position)
+        getTasks()
+//        taskAdapter.notifyDataSetChanged()
+
 //
     }
 

@@ -19,6 +19,10 @@ class HomeViewModel(var homeRepo: IHome) : ViewModel() {
     val updateTask: LiveData<Boolean>
         get() = _updateTaskResponse
 
+    private val _updatePeriority = MutableLiveData<Boolean>()
+    val updatePeriority: LiveData<Boolean>
+        get() = _updatePeriority
+
 
     private val _taskSaved = MutableLiveData<Boolean>()
     val taskSaved: LiveData<Boolean>
