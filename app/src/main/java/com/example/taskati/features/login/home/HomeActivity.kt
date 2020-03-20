@@ -7,7 +7,6 @@ import android.view.Menu
 import android.view.MenuItem
 import android.widget.CompoundButton
 import android.widget.EditText
-import android.widget.Toast
 import androidx.lifecycle.Observer
 import com.example.taskati.R
 import com.example.taskati.common.Navigation
@@ -23,6 +22,9 @@ class HomeActivity : AppCompatActivity(R.layout.activity_home), TaskAdapter.Inte
 
     private val homeViewModel: HomeViewModel by viewModel()
     lateinit var taskAdapter: TaskAdapter
+    lateinit var doneList: List<TaskTable>
+    lateinit var allTasks: List<TaskTable>
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,6 +32,8 @@ class HomeActivity : AppCompatActivity(R.layout.activity_home), TaskAdapter.Inte
 
         homeViewModel.tasksResponse.observe(this, Observer {
             Log.i(javaClass.simpleName, it.toString())
+            doneList = it.filter { it.isDone }
+            allTasks = it
             taskAdapter.submitList(it)
         })
 
@@ -79,10 +83,13 @@ class HomeActivity : AppCompatActivity(R.layout.activity_home), TaskAdapter.Inte
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         val id = item.itemId
-        if (id == R.id.action_menu1) {
-            Toast.makeText(this, "eshta", Toast.LENGTH_SHORT).show()
+        when(id){
+            R.id.action_all_tasks -> taskAdapter.submitList(allTasks)
+            R.id.action_done_tasks -> taskAdapter.submitList(doneList)
         }
-        return false
+
+
+        return true
     }
 
     override fun onItemSelected(position: Int, item: TaskTable) {

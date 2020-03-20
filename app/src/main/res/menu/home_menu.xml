@@ -12,10 +12,14 @@
         <menu>
 
             <item
-                android:id="@+id/action_menu1"
-                android:icon="@android:drawable/ic_menu_preferences"
+                android:id="@+id/action_done_tasks"
+                android:icon="@drawable/ic_done"
                 android:title="@string/completed_tasks_menu_title" />
 
+            <item
+                android:id="@+id/action_all_tasks"
+                android:icon="@drawable/ic_select_all"
+                android:title="@string/all_tasks" />
 
         </menu>
     </item>
