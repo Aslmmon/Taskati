@@ -34,29 +34,25 @@ class DetailsActivity : AppCompatActivity(R.layout.activity_details), CommentsAd
         intent?.let {
             val dataRecieved = it.getSerializable(Constants.TASK_DETAILS) as TaskTable
             task = dataRecieved
+            toast(task.toString())
             Log.i(javaClass.simpleName, dataRecieved.toString())
             bindDataToViews(dataRecieved)
         }
 
-//        detailViewModel.commentSaved.observe(this, Observer {
-//            if (it) {
-//                onResume()
-//                clearEditText()
-//            }
-//        })
+        check_done.setOnCheckedChangeListener { buttonView, isChecked ->
+            detailViewModel.updateDoneTask(task.id, isChecked)
+        }
+        toggle_multi.setOnValueChangedListener { value ->
+            detailViewModel.updatePeriorityTask(task.id, value)
+        }
         detailViewModel.deletedResponse.observe(this, Observer {
             if (it) toast(it.toString())
         })
 
-//        detailViewModel.commentsResponse.observe(this, Observer {
-//            Log.i(javaClass.simpleName, it.toString())
-//            commentsAdapter.submitList(it)
-//        })
-
         iv_send_btn.setSafeOnClickListener {
             val comment = et_add_comment.text.toString()
             val commentTable = CommentsTable(0, task.id, comment)
-            detailViewModel.saveComments(commentTable)
+           // detailViewModel.saveComments(commentTable)
         }
 
 
@@ -65,13 +61,6 @@ class DetailsActivity : AppCompatActivity(R.layout.activity_details), CommentsAd
     private fun clearEditText() {
         et_add_comment.text.clear()
     }
-
-    override fun onResume() {
-        super.onResume()
-        detailViewModel.getComments(task.id)
-
-    }
-
     private fun initRecycler() {
         rv_comments.apply {
             commentsAdapter = CommentsAdapter(this@DetailsActivity)
@@ -83,6 +72,9 @@ class DetailsActivity : AppCompatActivity(R.layout.activity_details), CommentsAd
         supportActionBar?.title = dataRecieved.title
         supportActionBar?.setHomeButtonEnabled(true)
         tv_date.text = dataRecieved.date
+        check_done.isChecked = dataRecieved.isDone
+        toggle_multi.value = dataRecieved.difficulty
+
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {

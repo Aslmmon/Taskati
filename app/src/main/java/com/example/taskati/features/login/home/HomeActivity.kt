@@ -9,7 +9,6 @@ import android.widget.EditText
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import com.example.taskati.R
-import com.example.taskati.common.Navigation
 import com.example.taskati.common.bases.setSafeOnClickListener
 import com.example.taskati.common.data.db.TaskTable
 import com.example.taskati.features.login.home.adapter.TaskAdapter
@@ -37,8 +36,10 @@ class HomeActivity : AppCompatActivity(R.layout.activity_home), TaskAdapter.Inte
         homeViewModel.tasksResponse.observe(this, Observer {
             Log.i(javaClass.simpleName, it.toString())
             filterDonelist(it)
-            allTasks = it
             taskAdapter.submitList(it)
+        })
+        homeViewModel.updateTask.observe(this, Observer {
+            if(it) taskAdapter.notifyDataSetChanged()
         })
         homeViewModel.taskSaved.observe(this, Observer {
             if (it) getTasks()
@@ -75,14 +76,13 @@ class HomeActivity : AppCompatActivity(R.layout.activity_home), TaskAdapter.Inte
         rv_tasks.apply {
             taskAdapter = TaskAdapter(this@HomeActivity)
             adapter = taskAdapter
-         //   taskAdapter.notifyDataSetChanged()
         }
     }
 
     override fun onResume() {
         super.onResume()
-        initRecycler()
         getTasks()
+        toast("OnResume")
     }
 
     private fun getTasks() {
@@ -104,19 +104,21 @@ class HomeActivity : AppCompatActivity(R.layout.activity_home), TaskAdapter.Inte
     }
 
     override fun onItemSelected(position: Int, item: TaskTable) {
-        Log.i(javaClass.simpleName, item.title)
-        Navigation.goToDetailsActivity(this, item)
+        Log.i(javaClass.simpleName, item.toString())
+       // Navigation.goToDetailsActivity(this, item)
     }
 
     override fun onCheckSelected(btn: CompoundButton, isDone: Boolean, item: TaskTable) {
         homeViewModel.updateDoneTask(item.id, isDone)
-        getTasks()
+       // getTasks()
 
     }
 
     override fun onIndicatorChecked(position: Int, item: TaskTable) {
         Log.i(javaClass.simpleName, item.title)
+    //   taskAdapter.notifyItemChanged(position)
         homeViewModel.updatePeriorityTask(item.id, position)
+      //  getTasks()
     }
 
 

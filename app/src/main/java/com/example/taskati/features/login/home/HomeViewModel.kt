@@ -6,7 +6,9 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.taskati.common.Repo.HomeRepo.IHome
+import com.example.taskati.common.bases.launchDataLoad
 import com.example.taskati.common.data.db.TaskTable
+import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
 class HomeViewModel(var homeRepo: IHome) : ViewModel() {
@@ -29,52 +31,44 @@ class HomeViewModel(var homeRepo: IHome) : ViewModel() {
         get() = _taskSaved
 
 
-
     fun updatePeriorityTask(userId: Int, periority: Int) {
-        viewModelScope.launch {
-            try {
-                homeRepo.updatePeriorityTask(userId,periority)
-                Log.i(javaClass.simpleName, "Updated Indicator")
-            } catch (t: Throwable) {
-                Log.i(javaClass.simpleName, t.message)
-            }
-        }
+        launchDataLoad(execution = {
+            homeRepo.updatePeriorityTask(userId, periority)
+            Log.i(javaClass.simpleName, "Updated Indicator")
+        }, errorReturned = {
+            Log.i(javaClass.simpleName, it.message)
+        })
+
     }
 
     fun updateDoneTask(userId: Int, doneTask: Boolean) {
-        viewModelScope.launch {
-            try {
-                homeRepo.updateDoneTask(userId, doneTask)
-                _updateTaskResponse.postValue(true)
-                Log.i(javaClass.simpleName, "Updated ")
-
-            } catch (t: Throwable) {
-                Log.i(javaClass.simpleName, t.message)
-            }
-        }
+        launchDataLoad(execution = {
+            homeRepo.updateDoneTask(userId, doneTask)
+            _updateTaskResponse.postValue(true)
+            Log.i(javaClass.simpleName, "Updated ")
+        }, errorReturned = {
+            Log.i(javaClass.simpleName, it.message)
+        })
     }
 
 
     fun getTasks() {
-        viewModelScope.launch {
-            try {
-                _tasksResponse.postValue(homeRepo.getTasks())
-            } catch (t: Throwable) {
-                Log.i(javaClass.simpleName, t.message)
-            }
-        }
+        launchDataLoad(execution = {
+            _tasksResponse.postValue(homeRepo.getTasks())
+        }, errorReturned = {
+            Log.i(javaClass.simpleName, it.message)
+        })
     }
 
     fun saveTask(task: TaskTable) {
-        viewModelScope.launch {
-            try {
-                homeRepo.saveToDatabase(task)
-                _taskSaved.postValue(true)
-                Log.i(javaClass.simpleName, "saved")
-            } catch (t: Throwable) {
-                Log.i(javaClass.simpleName, t.message)
-            }
-        }
+
+        launchDataLoad(execution = {
+            homeRepo.saveToDatabase(task)
+            _taskSaved.postValue(true)
+            Log.i(javaClass.simpleName, "saved")
+        }, errorReturned = {
+            Log.i(javaClass.simpleName, it.message)
+        })
     }
 
 }

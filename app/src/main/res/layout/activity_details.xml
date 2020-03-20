@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:mstb="http://schemas.android.com/apk/res-auto"
     tools:context=".features.login.details.DetailsActivity">
 
 
@@ -38,6 +39,15 @@
         app:layout_constraintTop_toBottomOf="@id/custom_done"
         tools:text="December 10 2019" />
 
+    <CheckBox
+        android:id="@+id/check_done"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/custom_done"
+        app:layout_constraintBottom_toBottomOf="@id/custom_done"
+        />
+
     <com.example.taskati.common.custom.CustomText
         android:id="@+id/custom_periority"
         android:layout_width="0dp"
@@ -56,6 +66,25 @@
         app:layout_constraintStart_toStartOf="@id/custom_periority"
         app:layout_constraintTop_toBottomOf="@id/custom_periority" />
 
+
+    <org.honorato.multistatetogglebutton.MultiStateToggleButton
+        android:layout_width="0dp"
+        android:id="@+id/toggle_multi"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="@id/custom_periority"
+        app:layout_constraintTop_toTopOf="@id/custom_periority"
+        app:layout_constraintStart_toEndOf="@id/gd_vertical"
+        mstb:mstbPrimaryColor="@color/colorPrimary"
+        mstb:mstbSecondaryColor="@color/gray"
+        mstb:values="@array/periority_array"
+        />
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/gd_vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.7" />
     <EditText
         android:id="@+id/et_add_comment"
         android:layout_width="0dp"

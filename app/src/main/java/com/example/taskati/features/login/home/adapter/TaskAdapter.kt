@@ -56,6 +56,7 @@ class TaskAdapter(private val interaction: Interaction? = null) :
         differ.submitList(list)
     }
 
+
     class TaskViewHolder
     constructor(
         itemView: View,
