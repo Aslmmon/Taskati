@@ -28,7 +28,6 @@ class HomeActivity : AppCompatActivity(R.layout.activity_home), TaskAdapter.Inte
     private val homeViewModel: HomeViewModel by viewModel()
     lateinit var taskAdapter: TaskAdapter
     lateinit var doneList: List<TaskTable>
-    lateinit var allTasks: MutableList<TaskTable>
     val df = SimpleDateFormat("dd-MMM-yyyy")
 
 
