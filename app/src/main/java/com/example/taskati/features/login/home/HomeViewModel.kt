@@ -8,6 +8,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.taskati.common.Repo.HomeRepo.IHome
 import com.example.taskati.common.bases.launchDataLoad
 import com.example.taskati.common.data.db.TaskTable
+import com.google.android.gms.tasks.Task
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
@@ -41,9 +42,9 @@ class HomeViewModel(var homeRepo: IHome) : ViewModel() {
 
     }
 
-    fun updateDoneTask(userId: Int, doneTask: Boolean) {
+    fun updateDoneTask(doneTask:TaskTable) {
         launchDataLoad(execution = {
-            homeRepo.updateDoneTask(userId, doneTask)
+            homeRepo.updateDoneTask(doneTask)
             _updateTaskResponse.postValue(true)
             Log.i(javaClass.simpleName, "Updated ")
         }, errorReturned = {

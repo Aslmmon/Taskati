@@ -45,7 +45,7 @@ class DetailsViewModel(var detailRepo: IDetail,var homeRepo:IHome) : ViewModel()
 
     fun updateDoneTask(userId: Int, doneTask: Boolean) {
         launchDataLoad(execution = {
-            homeRepo.updateDoneTask(userId, doneTask)
+         //   homeRepo.updateDoneTask(userId, doneTask)
             Log.i(javaClass.simpleName, "Updated ")
         }, errorReturned = {
             Log.i(javaClass.simpleName, it.message)

@@ -1,9 +1,6 @@
 package com.example.taskati.common.data.db
 
-import androidx.room.Dao
-import androidx.room.Delete
-import androidx.room.Insert
-import androidx.room.Query
+import androidx.room.*
 
 @Dao
 interface TasksDao {
@@ -16,8 +13,11 @@ interface TasksDao {
     @Delete
     suspend fun deleteTask(task: TaskTable)
 
-    @Query("UPDATE task_table SET done = :done WHERE id = :userId")
-    suspend fun updateDoneTask(userId: Int, done: Boolean)
+//    @Query("UPDATE task_table SET done = :done WHERE id = :userId")
+//    suspend fun updateDoneTask(userId: Int, done: Boolean)
+
+    @Update
+    suspend fun updateDoneTask(task: TaskTable)
 
     @Query("UPDATE task_table SET difficulty = :diffic WHERE id = :userId")
     suspend fun updatePeriorityTask(userId: Int, diffic: Int)

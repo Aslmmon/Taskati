@@ -6,7 +6,7 @@ interface IHome {
 
     suspend fun saveToDatabase(taks: TaskTable)
     suspend fun getTasks(): List<TaskTable>
-    suspend fun updateDoneTask(id: Int, done: Boolean)
+    suspend fun updateDoneTask(task: TaskTable)
     suspend fun updatePeriorityTask(id: Int, periority: Int)
 
 }

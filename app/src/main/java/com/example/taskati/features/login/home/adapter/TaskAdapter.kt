@@ -22,7 +22,8 @@ class TaskAdapter(private val interaction: Interaction? = null) :
             oldItem.id == newItem.id
 
         override fun areContentsTheSame(oldItem: TaskTable, newItem: TaskTable) =
-            oldItem.id == newItem.id
+            oldItem.isDone == newItem.isDone && oldItem.difficulty == newItem.difficulty
+
 
     }
     private val differ = AsyncListDiffer(this, DIFF_CALLBACK)
