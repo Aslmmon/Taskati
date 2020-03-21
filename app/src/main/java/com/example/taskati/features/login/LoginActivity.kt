@@ -17,7 +17,6 @@ class LoginActivity : AppCompatActivity(R.layout.activity_login) {
         super.onCreate(savedInstanceState)
         initializeFireBase()
         btn_login.setSafeOnClickListener {
-
             val name = et_username.text.toString()
             signInWithEmailAndPassword(name)
         }
@@ -33,13 +32,12 @@ class LoginActivity : AppCompatActivity(R.layout.activity_login) {
                     user?.let {
                         Navigation.goToHomeActivity(this, it.uid)
                     }
-                } else Toast.makeText(baseContext, "Authentication failed.", Toast.LENGTH_SHORT).show()
+                } else Toast.makeText(baseContext, "Authentication failed. ${task.exception?.message}", Toast.LENGTH_SHORT).show()
             }
     }
 
     public override fun onStart() {
         super.onStart()
-        // Check if user is signed in (non-null) and update UI accordingly.
         val currentUser = auth.currentUser
         currentUser?.let {
             Navigation.goToHomeActivity(this,currentUser.uid)

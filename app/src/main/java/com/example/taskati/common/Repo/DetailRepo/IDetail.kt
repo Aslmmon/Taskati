@@ -7,8 +7,6 @@ import com.example.taskati.common.model.UserWithComments
 interface IDetail {
     suspend fun deleteTask(task: TaskTable)
     suspend fun saveCommentToTask(commentsTable: CommentsTable)
-    suspend fun getComments(): List<CommentsTable>
-
     suspend fun getUserWithComments(userId:Int): List<UserWithComments>
 
 }

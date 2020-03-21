@@ -8,9 +8,6 @@ import com.example.taskati.common.model.UserWithComments
 
 class DetailRepo(var database: TasksDao, var databaseComments: CommentsDao) : IDetail {
     override suspend fun deleteTask(task: TaskTable) = database.deleteTask(task)
-    override suspend fun saveCommentToTask(commentsTable: CommentsTable) =
-        databaseComments.saveComments(commentsTable)
-
-    override suspend fun getComments(): List<CommentsTable> = databaseComments.getAllComments()
+    override suspend fun saveCommentToTask(commentsTable: CommentsTable) = databaseComments.saveComments(commentsTable)
     override suspend fun getUserWithComments(userId:Int): List<UserWithComments>  = databaseComments.getUserWithComments(userId)
 }

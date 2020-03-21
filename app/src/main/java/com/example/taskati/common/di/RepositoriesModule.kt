@@ -7,7 +7,7 @@ import com.example.taskati.common.Repo.HomeRepo.IHome
 import org.koin.dsl.module
 
 val repositoriesModule = module {
-    single { HomeRepo(get()) as IHome }
+    single { HomeRepo(get(),get()) as IHome }
     single { DetailRepo(get(),get()) as IDetail }
 //    single { MainRepo(get()) as IMain }
 

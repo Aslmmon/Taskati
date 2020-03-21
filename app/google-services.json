@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "748258243324",
+    "firebase_url": "https://taskati-e747b.firebaseio.com",
+    "project_id": "taskati-e747b",
+    "storage_bucket": "taskati-e747b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:748258243324:android:e0a2a7bc0de1557a769d79",
+        "android_client_info": {
+          "package_name": "com.example.taskati"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "748258243324-cqr1trf1oor31todji8m6a4911n44jqr.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.taskati",
+            "certificate_hash": "575d90bc5191c58ebd1d0652f450007c7f2abe66"
+          }
+        },
+        {
+          "client_id": "748258243324-bb6pc3ont55o01iif5d422bcdmc87b76.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDKgFGnWtX3VjA4lKFcO0z6LGcjnV0QAtU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "748258243324-bb6pc3ont55o01iif5d422bcdmc87b76.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -8,6 +8,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.taskati.common.Repo.HomeRepo.IHome
 import com.example.taskati.common.bases.launchDataLoad
 import com.example.taskati.common.data.db.TaskTable
+import com.example.taskati.common.model.UserWithComments
 import com.google.android.gms.tasks.Task
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -18,13 +19,9 @@ class HomeViewModel(var homeRepo: IHome) : ViewModel() {
     val tasksResponse: LiveData<List<TaskTable>>
         get() = _tasksResponse
 
-    private val _updateTaskResponse = MutableLiveData<Boolean>()
-    val updateTask: LiveData<Boolean>
-        get() = _updateTaskResponse
-
-    private val _updatePeriority = MutableLiveData<Boolean>()
-    val updatePeriority: LiveData<Boolean>
-        get() = _updatePeriority
+    private val _allTasksWithComments = MutableLiveData<List<UserWithComments>>()
+    val allTasksWithComments: LiveData<List<UserWithComments>>
+        get() = _allTasksWithComments
 
 
     private val _taskSaved = MutableLiveData<Boolean>()
@@ -45,7 +42,6 @@ class HomeViewModel(var homeRepo: IHome) : ViewModel() {
     fun updateDoneTask(doneTask:TaskTable) {
         launchDataLoad(execution = {
             homeRepo.updateDoneTask(doneTask)
-            _updateTaskResponse.postValue(true)
             Log.i(javaClass.simpleName, "Updated ")
         }, errorReturned = {
             Log.i(javaClass.simpleName, it.message)
@@ -62,7 +58,6 @@ class HomeViewModel(var homeRepo: IHome) : ViewModel() {
     }
 
     fun saveTask(task: TaskTable) {
-
         launchDataLoad(execution = {
             homeRepo.saveToDatabase(task)
             _taskSaved.postValue(true)
@@ -71,5 +66,16 @@ class HomeViewModel(var homeRepo: IHome) : ViewModel() {
             Log.i(javaClass.simpleName, it.message)
         })
     }
+
+    fun getAllUsersWithComments() {
+        launchDataLoad(execution = {
+            homeRepo.getUsersWithComments()
+            _allTasksWithComments.postValue(homeRepo.getUsersWithComments())
+            Log.i(javaClass.simpleName, "get comments")
+        }, errorReturned = {
+            Log.i(javaClass.simpleName, it.message)
+        })
+    }
+
 
 }

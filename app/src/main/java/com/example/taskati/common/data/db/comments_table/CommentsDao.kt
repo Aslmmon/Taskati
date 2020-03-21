@@ -11,8 +11,8 @@ interface CommentsDao {
     @Insert
     suspend fun saveComments(comments: CommentsTable)
 
-    @Query("SELECT * FROM comments_table")
-    suspend fun getAllComments(): List<CommentsTable>
+    @Query("SELECT * FROM task_table")
+    suspend fun getAllComments(): List<UserWithComments>
 
     @Transaction
     @Query("SELECT * FROM task_table WHERE id = :userId")

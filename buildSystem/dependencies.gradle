@@ -50,8 +50,6 @@ ext {
     debug = [
             leak_canary            : "com.squareup.leakcanary:leakcanary-android:2.1",
             debugRoomAndSharedPrefs: 'com.amitshekhar.android:debug-db:1.0.6'
-
-
     ]
     stetho = [
             stethos: "com.facebook.stetho:stetho:1.5.1"
@@ -107,13 +105,8 @@ ext {
             viewPager: "androidx.viewpager2:viewpager2:$view_pager2_version"
     ]
     others = [
-          //  groupie             : "com.xwray:groupie:2.5.1",
             autoDimension       : "com.github.hantrungkien:AutoDimension:1.0.4",
-      //      stepperlayout       : "com.stepstone.stepper:material-stepper:4.3.1",
             googleMaterialDesign: "com.google.android.material:material:1.1.0-alpha02",
-//            flashbar            : "com.andrognito.flashbar:flashbar:1.0.3",
-//            androidValidation   : 'com.mobsandgeeks:android-saripaar:2.0.3',
-//            animatedButton      : 'br.com.simplepass:loading-button-android:2.2.0',
             vector :"com.victor:lib:1.0.4"
 
     ]
