@@ -30,13 +30,17 @@ class DetailsActivity : AppCompatActivity(R.layout.activity_details), CommentsAd
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         initRecycler()
+
         val intent = intent.extras
         intent?.let {
             val dataRecieved = it.getSerializable(Constants.TASK_DETAILS) as TaskTable
             task = dataRecieved
             Log.i(javaClass.simpleName, dataRecieved.toString())
             bindDataToViews(dataRecieved)
+            getComments()
+
         }
+
 
         check_done.setOnCheckedChangeListener { buttonView, isChecked ->
             val newItem = TaskTable(task.id,task.title,task.date,isChecked,task.difficulty)
@@ -45,16 +49,28 @@ class DetailsActivity : AppCompatActivity(R.layout.activity_details), CommentsAd
         toggle_multi.setOnValueChangedListener { value ->
             detailViewModel.updatePeriorityTask(task.id, value)
         }
-        detailViewModel.deletedResponse.observe(this, Observer {
-            if (it) toast(it.toString())
-        })
+//        detailViewModel.deletedResponse.observe(this, Observer {
+//            if (it) toast(it.toString())
+//        })
 
+        detailViewModel.commentSaved.observe(this, Observer {
+            getComments()
+        })
         iv_send_btn.setSafeOnClickListener {
             val comment = et_add_comment.text.toString()
             val commentTable = CommentsTable(0, task.id, comment)
-           // detailViewModel.saveComments(commentTable)
+            detailViewModel.saveComments(commentTable)
         }
 
+        detailViewModel.commentsResponse.observe(this, Observer {
+            Log.i(javaClass.simpleName,it.toString())
+            commentsAdapter.submitList(it[0].comments)
+        })
+
+    }
+
+    private fun getComments() {
+        detailViewModel.getComments(task.id)
 
     }
 

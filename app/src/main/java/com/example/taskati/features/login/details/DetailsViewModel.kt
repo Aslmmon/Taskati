@@ -4,16 +4,13 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
 import com.example.taskati.common.Repo.DetailRepo.IDetail
-import com.example.taskati.common.Repo.HomeRepo.HomeRepo
 import com.example.taskati.common.Repo.HomeRepo.IHome
 import com.example.taskati.common.bases.launchDataLoad
 import com.example.taskati.common.data.db.TaskTable
 import com.example.taskati.common.data.db.comments_table.CommentsTable
-import kotlinx.coroutines.Dispatchers
+import com.example.taskati.common.model.UserWithComments
 import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.cancel
 import kotlinx.coroutines.launch
 
 class DetailsViewModel(var detailRepo: IDetail,var homeRepo:IHome) : ViewModel() {
@@ -24,8 +21,8 @@ class DetailsViewModel(var detailRepo: IDetail,var homeRepo:IHome) : ViewModel()
         get() = _commentSaved
 
 
-    private val _commentsResponse = MutableLiveData<List<CommentsTable>>()
-    val commentsResponse: LiveData<List<CommentsTable>>
+    private val _commentsResponse = MutableLiveData<List<UserWithComments>>()
+    val commentsResponse: LiveData<List<UserWithComments>>
         get() = _commentsResponse
 
 
@@ -52,29 +49,29 @@ class DetailsViewModel(var detailRepo: IDetail,var homeRepo:IHome) : ViewModel()
         })
     }
 
-//    fun saveComments(comment: CommentsTable) {
-//        viewModelScope.launch {
-//            try {
-//                Log.i(javaClass.simpleName, "save Comment")
-//                detailRepo.saveCommentToTask(comment)
-//                _commentSaved.postValue(true)
-//            } catch (t: Throwable) {
-//                Log.i(javaClass.simpleName, t.message)
-//            }
-//        }
-//    }
+    fun saveComments(comment: CommentsTable) {
+        GlobalScope.launch {
+            try {
+                Log.i(javaClass.simpleName, "save Comment")
+                detailRepo.saveCommentToTask(comment)
+                _commentSaved.postValue(true)
+            } catch (t: Throwable) {
+                Log.i(javaClass.simpleName, t.message)
+            }
+        }
+    }
 
-//
-//    fun getComments(userId: Int) {
-//        viewModelScope.launch {
-//            try {
-//                _commentsResponse.postValue(detailRepo.getComments())
-//                Log.i(javaClass.simpleName, "All Comment")
-//            } catch (t: Throwable) {
-//                Log.i(javaClass.simpleName, t.message)
-//            }
-//        }
-//    }
+
+    fun getComments(userId: Int) {
+        GlobalScope.launch {
+            try {
+                _commentsResponse.postValue(detailRepo.getUserWithComments(userId))
+                Log.i(javaClass.simpleName, "All Comment")
+            } catch (t: Throwable) {
+                Log.i(javaClass.simpleName, t.message)
+            }
+        }
+    }
 
 
     fun deleteTask(task: TaskTable) {

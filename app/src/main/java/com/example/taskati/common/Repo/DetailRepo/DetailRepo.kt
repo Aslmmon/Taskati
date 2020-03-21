@@ -4,6 +4,7 @@ import com.example.taskati.common.data.db.TaskTable
 import com.example.taskati.common.data.db.TasksDao
 import com.example.taskati.common.data.db.comments_table.CommentsDao
 import com.example.taskati.common.data.db.comments_table.CommentsTable
+import com.example.taskati.common.model.UserWithComments
 
 class DetailRepo(var database: TasksDao, var databaseComments: CommentsDao) : IDetail {
     override suspend fun deleteTask(task: TaskTable) = database.deleteTask(task)
@@ -11,4 +12,5 @@ class DetailRepo(var database: TasksDao, var databaseComments: CommentsDao) : ID
         databaseComments.saveComments(commentsTable)
 
     override suspend fun getComments(): List<CommentsTable> = databaseComments.getAllComments()
+    override suspend fun getUserWithComments(userId:Int): List<UserWithComments>  = databaseComments.getUserWithComments(userId)
 }
