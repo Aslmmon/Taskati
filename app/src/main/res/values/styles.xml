@@ -8,6 +8,17 @@
         <item name="colorAccent">@color/colorAccent</item>
         <item name="android:textStyle">bold</item>
         <item name="android:fontFamily">@font/arapey_italic</item>
+        <item name="bottomSheetDialogTheme">@style/AppBottomSheetDialogTheme</item>
+    </style>
+
+    <style name="AppBottomSheetDialogTheme"
+        parent="Theme.Design.Light.BottomSheetDialog">
+        <item name="bottomSheetStyle">@style/AppModalStyle</item>
+    </style>
+
+    <style name="AppModalStyle"
+        parent="Widget.Design.BottomSheet.Modal">
+        <item name="android:background">@drawable/round_dialog</item>
     </style>
 
     <style name="editTextStyle" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">

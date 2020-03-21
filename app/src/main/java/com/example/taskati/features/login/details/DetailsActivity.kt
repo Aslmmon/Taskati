@@ -1,12 +1,12 @@
 package com.example.taskati.features.login.details
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
-import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.DividerItemDecoration
 import com.example.taskati.R
 import com.example.taskati.common.Constants
 import com.example.taskati.common.bases.setSafeOnClickListener
@@ -14,11 +14,10 @@ import com.example.taskati.common.bases.showAlertDialog
 import com.example.taskati.common.data.db.TaskTable
 import com.example.taskati.common.data.db.comments_table.CommentsTable
 import com.example.taskati.features.login.details.adapter.CommentsAdapter
-import com.example.taskati.features.login.home.HomeViewModel
-import com.example.taskati.features.login.home.adapter.TaskAdapter
 import kotlinx.android.synthetic.main.activity_details.*
 import org.jetbrains.anko.toast
 import org.koin.android.viewmodel.ext.android.viewModel
+
 
 class DetailsActivity : AppCompatActivity(R.layout.activity_details), CommentsAdapter.Interaction {
 
@@ -49,10 +48,6 @@ class DetailsActivity : AppCompatActivity(R.layout.activity_details), CommentsAd
         toggle_multi.setOnValueChangedListener { value ->
             detailViewModel.updatePeriorityTask(task.id, value)
         }
-//        detailViewModel.deletedResponse.observe(this, Observer {
-//            if (it) toast(it.toString())
-//        })
-
         detailViewModel.commentSaved.observe(this, Observer {
             getComments()
         })
@@ -60,6 +55,7 @@ class DetailsActivity : AppCompatActivity(R.layout.activity_details), CommentsAd
             val comment = et_add_comment.text.toString()
             val commentTable = CommentsTable(0, task.id, comment)
             detailViewModel.saveComments(commentTable)
+            clearEditText()
         }
 
         detailViewModel.commentsResponse.observe(this, Observer {
@@ -75,11 +71,12 @@ class DetailsActivity : AppCompatActivity(R.layout.activity_details), CommentsAd
     }
 
     private fun clearEditText() {
-        et_add_comment.text.clear()
+        et_add_comment.text?.clear()
     }
     private fun initRecycler() {
         rv_comments.apply {
             commentsAdapter = CommentsAdapter(this@DetailsActivity)
+            addItemDecoration(DividerItemDecoration(this@DetailsActivity,DividerItemDecoration.VERTICAL))
             adapter = commentsAdapter
         }
     }
@@ -101,11 +98,10 @@ class DetailsActivity : AppCompatActivity(R.layout.activity_details), CommentsAd
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         val id = item.itemId
         when (id) {
-            R.id.action_delete -> showAlertDialog {
-                toast(task.title)
+            R.id.action_delete -> showAlertDialog(resources.getString(R.string.alert_message)) {
                 detailViewModel.deleteTask(task)
                 finish()
-            }
+                }
             android.R.id.home -> finish()
         }
         return true

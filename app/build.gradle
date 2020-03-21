@@ -47,15 +47,14 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
     implementation googlePlayServices.values()
     implementation kotlin.values()
-    implementation imageslibraries.values()
     implementation rxJavaDependencies.values()
     implementation networkDependencies.values()
-    implementation shimmer.values()
-    implementation viewPager.values()
     implementation pagination.values()
     implementation koin.values()
     implementation coroutine.values()
     implementation debug.values()
+    implementation others.values()
+
     implementation 'org.honorato.multistatetogglebutton:multistatetogglebutton:0.2.2'
     implementation "org.jetbrains.anko:anko-appcompat-v7-commons:0.10.8"
 

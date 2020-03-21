@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import android.widget.CompoundButton
 import android.widget.EditText
 import androidx.appcompat.app.AppCompatActivity
@@ -11,11 +12,14 @@ import androidx.lifecycle.Observer
 import com.example.taskati.R
 import com.example.taskati.common.Navigation
 import com.example.taskati.common.bases.setSafeOnClickListener
+import com.example.taskati.common.bases.showAlertDialog
 import com.example.taskati.common.data.db.TaskTable
 import com.example.taskati.features.login.home.adapter.TaskAdapter
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.button.MaterialButton
 import kotlinx.android.synthetic.main.activity_home.*
+import kotlinx.android.synthetic.main.empty_view.*
+import kotlinx.android.synthetic.main.loading.*
 import org.jetbrains.anko.toast
 import org.koin.android.ext.android.get
 import org.koin.android.viewmodel.ext.android.viewModel
@@ -35,8 +39,16 @@ class HomeActivity : AppCompatActivity(R.layout.activity_home), TaskAdapter.Inte
         super.onCreate(savedInstanceState)
         initRecycler()
         homeViewModel.tasksResponse.observe(this, Observer {
-            filterDonelist(it)
-            taskAdapter.submitList(it)
+            stopLoading()
+            if (it.isEmpty()) {
+                taskAdapter.submitList(it)
+                showEmptyView()
+            } else {
+                hideEmptyView()
+                filterDonelist(it)
+                taskAdapter.submitList(it)
+            }
+
         })
         homeViewModel.taskSaved.observe(this, Observer {
             if (it) getTasks()
@@ -65,6 +77,20 @@ class HomeActivity : AppCompatActivity(R.layout.activity_home), TaskAdapter.Inte
         }
     }
 
+    private fun showEmptyView() {
+        iv_empty.visibility = View.VISIBLE
+        tv_no_tasks_title.visibility = View.VISIBLE
+    }
+
+    private fun hideEmptyView() {
+        iv_empty.visibility = View.GONE
+        tv_no_tasks_title.visibility = View.GONE
+    }
+
+    private fun stopLoading() {
+        rotateloading.stop()
+    }
+
     private fun filterDonelist(it: List<TaskTable>) {
         doneList = it.filter { it.isDone }
     }
@@ -82,7 +108,12 @@ class HomeActivity : AppCompatActivity(R.layout.activity_home), TaskAdapter.Inte
     }
 
     private fun getTasks() {
+        showLoading()
         homeViewModel.getTasks()
+    }
+
+    private fun showLoading() {
+        rotateloading.start()
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -94,18 +125,23 @@ class HomeActivity : AppCompatActivity(R.layout.activity_home), TaskAdapter.Inte
         val id = item.itemId
         when (id) {
             R.id.action_all_tasks -> getTasks()
-            R.id.action_done_tasks -> { taskAdapter.submitList(doneList) }
+            R.id.action_done_tasks -> {
+                taskAdapter.submitList(doneList)
+            }
+            R.id.action_sync -> showAlertDialog(resources.getString(R.string.alert_message_sync)){
+                toast("sync")
+            }
         }
         return true
     }
 
     override fun onItemSelected(position: Int, item: TaskTable) {
-        Log.i(javaClass.simpleName,item.toString())
+        Log.i(javaClass.simpleName, item.toString())
         Navigation.goToDetailsActivity(this, item)
     }
 
     override fun onCheckSelected(btn: CompoundButton, isDone: Boolean, item: TaskTable) {
-        val newItem = TaskTable(item.id,item.title,item.date,isDone,item.difficulty)
+        val newItem = TaskTable(item.id, item.title, item.date, isDone, item.difficulty)
         homeViewModel.updateDoneTask(newItem)
         onResume()
     }

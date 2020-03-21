@@ -6,7 +6,9 @@ import android.view.View
 import android.widget.Toast
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.taskati.R
 import com.homyapplication.common.bases.SafeClickListener
+import kotlinx.android.synthetic.main.activity_details.view.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.cancel
@@ -136,14 +138,14 @@ fun ViewModel.launchDataLoad(
 
 
 
-fun Context.showAlertDialog(launchFunction: () -> Unit) {
+fun Context.showAlertDialog(title:String ,launchFunction: () -> Unit) {
     val builder = AlertDialog.Builder(this)
-    builder.setTitle("App background color")
-    builder.setMessage("Are you Sure to Delete This Task ?")
-    builder.setPositiveButton("YES") { dialog, which ->
+    builder.setTitle(resources.getString(R.string.alert_title))
+    builder.setMessage(title)
+    builder.setPositiveButton(resources.getString(R.string.yes)) { dialog, which ->
         launchFunction()
     }
-    builder.setNegativeButton("No") { dialog, which ->
+    builder.setNeutralButton(resources.getString(R.string.no)) { dialog, which ->
         dialog.dismiss()
     }
     val dialog: AlertDialog = builder.create()

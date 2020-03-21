@@ -61,7 +61,7 @@
         android:id="@+id/custom_comments"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        app:Title="Comments"
+        app:Title="@string/comments_title"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@id/custom_periority"
         app:layout_constraintTop_toBottomOf="@id/custom_periority" />
@@ -70,7 +70,7 @@
     <org.honorato.multistatetogglebutton.MultiStateToggleButton
         android:layout_width="0dp"
         android:id="@+id/toggle_multi"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="@id/custom_periority"
         app:layout_constraintTop_toTopOf="@id/custom_periority"
@@ -85,16 +85,16 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         app:layout_constraintGuide_percent="0.7" />
-    <EditText
+    <com.google.android.material.textfield.TextInputEditText
         android:id="@+id/et_add_comment"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_margin="15dp"
+        android:layout_margin="5dp"
         android:background="@drawable/round_corners"
-        android:hint="Add Comment"
+        android:hint="@string/add_comment_title"
         android:padding="15dp"
-        android:textColor="@color/white"
-        android:textColorHint="@color/white"
+        android:textColor="@color/colorAccent"
+        android:textColorHint="@color/colorPrimary"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@id/iv_send_btn"
         app:layout_constraintStart_toStartOf="parent" />
@@ -103,7 +103,6 @@
         android:id="@+id/iv_send_btn"
         android:layout_width="50dp"
         android:layout_height="0dp"
-        android:backgroundTint="@color/colorPrimary"
         android:src="@drawable/ic_send"
         android:tint="@color/colorPrimary"
         app:layout_constraintBottom_toBottomOf="@id/et_add_comment"

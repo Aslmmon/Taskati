@@ -3,12 +3,22 @@
     <string name="username">Username</string>
     <string name="login_title">Login</string>
     <string name="add_title">add</string>
+    <string name="alert_title">Are You Sure</string>
+    <string name="alert_message">Do you want to Delete this Task?</string>
+    <string name="alert_message_sync">Do you want to Sync Tasks?</string>
+    <string name="yes">YES</string>
+    <string name="no">NO</string>
+
+
     <string name="create_task_title">create Task</string>
     <string name="task_name_title">Task name</string>
     <string name="delete_menu_title">delete</string>
     <string name="completed_tasks_menu_title">Completed Tasks</string>
     <string name="filter_menu">filter</string>
     <string name="all_tasks">All Tasks</string>
+    <string name="no_tasks_added_title">No Tasks Added</string>
+    <string name="add_comment_title">Add Comment  ...</string>
+    <string name="comments_title">Comments : </string>
     <string-array name="periority_array">
         <item>I</item>
         <item>II</item>

@@ -5,7 +5,7 @@
     <item
         android:id="@+id/action_settings"
         android:icon="@drawable/ic_filter"
-        android:orderInCategory="100"
+        android:orderInCategory="1"
         android:title="@string/filter_menu"
         app:showAsAction="always">
 
@@ -22,5 +22,13 @@
                 android:title="@string/all_tasks" />
 
         </menu>
+    </item>
+
+    <item
+        android:id="@+id/action_sync"
+        android:icon="@drawable/ic_sync"
+        android:title="@string/filter_menu"
+        app:showAsAction="ifRoom">
+
     </item>
 </menu>
