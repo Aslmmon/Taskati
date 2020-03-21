@@ -101,6 +101,7 @@ class HomeActivity : AppCompatActivity(R.layout.activity_home), TaskAdapter.Inte
     }
 
     override fun onItemSelected(position: Int, item: TaskTable) {
+        Log.i(javaClass.simpleName,item.toString())
         Navigation.goToDetailsActivity(this, item)
     }
 

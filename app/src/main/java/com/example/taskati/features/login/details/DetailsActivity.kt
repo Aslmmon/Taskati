@@ -34,13 +34,13 @@ class DetailsActivity : AppCompatActivity(R.layout.activity_details), CommentsAd
         intent?.let {
             val dataRecieved = it.getSerializable(Constants.TASK_DETAILS) as TaskTable
             task = dataRecieved
-            toast(task.toString())
             Log.i(javaClass.simpleName, dataRecieved.toString())
             bindDataToViews(dataRecieved)
         }
 
         check_done.setOnCheckedChangeListener { buttonView, isChecked ->
-            detailViewModel.updateDoneTask(task.id, isChecked)
+            val newItem = TaskTable(task.id,task.title,task.date,isChecked,task.difficulty)
+            detailViewModel.updateDoneTask(newItem)
         }
         toggle_multi.setOnValueChangedListener { value ->
             detailViewModel.updatePeriorityTask(task.id, value)

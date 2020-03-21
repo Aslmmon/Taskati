@@ -9,6 +9,7 @@ import android.widget.CompoundButton
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import com.example.taskati.R
+import com.example.taskati.common.bases.setSafeOnClickListener
 import com.example.taskati.common.data.db.TaskTable
 import kotlinx.android.synthetic.main.task_layout.view.*
 import org.honorato.multistatetogglebutton.ToggleButton
@@ -65,7 +66,7 @@ class TaskAdapter(private val interaction: Interaction? = null) :
     ) : RecyclerView.ViewHolder(itemView) {
 
         fun bind(item: TaskTable) = with(itemView) {
-            itemView.setOnClickListener {
+            itemView.setSafeOnClickListener {
                 interaction?.onItemSelected(adapterPosition, item)
             }
             itemView.check.setOnCheckedChangeListener { buttonView, isChecked ->

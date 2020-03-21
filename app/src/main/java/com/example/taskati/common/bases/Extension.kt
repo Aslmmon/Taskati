@@ -8,6 +8,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.homyapplication.common.bases.SafeClickListener
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.launch
 
@@ -121,7 +122,7 @@ fun ViewModel.launchDataLoad(
     errorReturned: suspend CoroutineScope.(Throwable) -> Unit,
     finallyBlock: (suspend CoroutineScope.() -> Unit)? = null) {
 
-    this.viewModelScope.launch {
+    GlobalScope.launch {
         try {
             execution()
         } catch (e: Throwable) {
