@@ -26,19 +26,6 @@ class DetailsViewModel(var detailRepo: IDetail,var homeRepo:IHome) : ViewModel()
         get() = _commentsResponse
 
 
-    private val _deletedResponse = MutableLiveData<Boolean>()
-    val deletedResponse: LiveData<Boolean>
-        get() = _deletedResponse
-
-
-    fun updatePeriorityTask(userId: Int, periority: Int) {
-        launchDataLoad(execution = {
-            homeRepo.updatePeriorityTask(userId, periority)
-            Log.i(javaClass.simpleName, "Updated Indicator")
-        }, errorReturned = {
-            Log.i(javaClass.simpleName, it.message)
-        })
-    }
 
     fun updateDoneTask(doneTask:TaskTable) {
         launchDataLoad(execution = {
@@ -72,7 +59,6 @@ class DetailsViewModel(var detailRepo: IDetail,var homeRepo:IHome) : ViewModel()
             }
         }
     }
-
 
     fun deleteTask(task: TaskTable) {
         GlobalScope.launch {

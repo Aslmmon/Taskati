@@ -23,7 +23,7 @@ class TaskAdapter(private val interaction: Interaction? = null) :
             oldItem.id == newItem.id
 
         override fun areContentsTheSame(oldItem: TaskTable, newItem: TaskTable) =
-            oldItem.isDone == newItem.isDone && oldItem.difficulty == newItem.difficulty
+            oldItem.isDone == newItem.isDone && oldItem.difficulty == newItem.difficulty && oldItem.date == newItem.date
 
 
     }

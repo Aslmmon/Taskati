@@ -178,11 +178,13 @@ class HomeActivity : AppCompatActivity(R.layout.activity_home), TaskAdapter.Inte
     }
 
     override fun onCheckSelected(btn: CompoundButton, isDone: Boolean, item: TaskTable) {
-        val newItem = TaskTable(item.id, item.title, item.date, isDone, item.difficulty)
-        homeViewModel.updateDoneTask(newItem)
+        val newTask = TaskTable(item.id, item.title, item.date, isDone, item.difficulty)
+        homeViewModel.updateDoneTask(newTask)
     }
 
     override fun onIndicatorChecked(position: Int, item: TaskTable) {
-        homeViewModel.updatePeriorityTask(item.id, position)
+        val newTask = TaskTable(item.id, item.title, item.date, item.isDone,position)
+        homeViewModel.updateDoneTask(newTask)
+
     }
 }

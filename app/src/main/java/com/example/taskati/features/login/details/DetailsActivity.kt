@@ -52,6 +52,8 @@ class DetailsActivity : AppCompatActivity(R.layout.activity_details), CommentsAd
         tv_date.setOnClickListener() {
             showDatePickerDialog { newDate ->
                 tv_date.text = newDate
+                val newItem = TaskTable(task.id, task.title, newDate, task.isDone, task.difficulty)
+                detailViewModel.updateDoneTask(newItem)
             }
         }
 
@@ -62,7 +64,8 @@ class DetailsActivity : AppCompatActivity(R.layout.activity_details), CommentsAd
             detailViewModel.updateDoneTask(newItem)
         }
         toggle_multi.setOnValueChangedListener { value ->
-            detailViewModel.updatePeriorityTask(task.id, value)
+            val newItem = TaskTable(task.id, task.title, task.date, task.isDone, value)
+            detailViewModel.updateDoneTask(newItem)
         }
         detailViewModel.commentSaved.observe(this, Observer {
             getComments()

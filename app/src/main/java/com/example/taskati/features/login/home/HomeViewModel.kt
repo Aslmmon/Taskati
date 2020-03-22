@@ -33,16 +33,6 @@ class HomeViewModel(var homeRepo: IHome) : ViewModel() {
         get() = _error
 
 
-    fun updatePeriorityTask(userId: Int, periority: Int) {
-        launchDataLoad(execution = {
-            homeRepo.updatePeriorityTask(userId, periority)
-            _taskUpdated.postValue(true)
-        }, errorReturned = {
-            _taskUpdated.postValue(false)
-            _error.postValue(it.message)
-        })
-
-    }
 
     fun updateDoneTask(doneTask: TaskTable) {
         launchDataLoad(execution = {

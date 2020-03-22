@@ -16,6 +16,8 @@ class LoginActivity : AppCompatActivity(R.layout.activity_login) {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         initializeFireBase()
+
+
         btn_login.setSafeOnClickListener {
             val name = et_username.text.toString()
             signInWithEmailAndPassword(name)

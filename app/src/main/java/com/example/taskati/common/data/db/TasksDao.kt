@@ -13,9 +13,6 @@ interface TasksDao {
     @Delete
     suspend fun deleteTask(task: TaskTable)
 
-//    @Query("UPDATE task_table SET done = :done WHERE id = :userId")
-//    suspend fun updateDoneTask(userId: Int, done: Boolean)
-
     @Update
     suspend fun updateDoneTask(task: TaskTable)
 
