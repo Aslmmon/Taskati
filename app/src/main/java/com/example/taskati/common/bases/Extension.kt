@@ -3,15 +3,13 @@ package com.example.taskati.common.bases
 import android.app.AlertDialog
 import android.content.Context
 import android.view.View
-import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
 import com.example.taskati.R
+import com.google.android.material.datepicker.MaterialDatePicker
 import com.homyapplication.common.bases.SafeClickListener
-import kotlinx.android.synthetic.main.activity_details.view.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.cancel
 import kotlinx.coroutines.launch
 
 //package com.floriaapp.vendor.common.bases
@@ -135,6 +133,15 @@ fun ViewModel.launchDataLoad(
         }
     }
 }
+fun AppCompatActivity.showDatePickerDialog(launchFunction: (String) -> Unit) {
+
+    val builder = MaterialDatePicker.Builder.datePicker()
+    val picker = builder.build()
+    picker.show(supportFragmentManager,picker.toString())
+    picker.addOnPositiveButtonClickListener {
+        launchFunction(picker.headerText)
+    }
+}
 
 
 
@@ -151,6 +158,9 @@ fun Context.showAlertDialog(title:String ,launchFunction: () -> Unit) {
     val dialog: AlertDialog = builder.create()
     dialog.show()
 }
+
+
+
 
 fun View.setSafeOnClickListener(onSafeClick: (View) -> Unit) {
     val safeClickListener = SafeClickListener {

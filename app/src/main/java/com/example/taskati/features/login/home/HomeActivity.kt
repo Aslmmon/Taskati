@@ -36,8 +36,6 @@ class HomeActivity : AppCompatActivity(R.layout.activity_home), TaskAdapter.Inte
     lateinit var taskAdapter: TaskAdapter
     lateinit var doneList: List<TaskTable>
     private lateinit var database: DatabaseReference
-
-    // ...
     val df = SimpleDateFormat("dd-MMM-yyyy")
 
 
@@ -56,15 +54,16 @@ class HomeActivity : AppCompatActivity(R.layout.activity_home), TaskAdapter.Inte
                 filterDonelist(it)
                 taskAdapter.submitList(it)
             }
-
         })
-        homeViewModel.taskSaved.observe(this, Observer {
+        homeViewModel.Error.observe(this, Observer {
+            toast(it)
+        })
+
+        homeViewModel.taskUpdated.observe(this, Observer {
             if (it) getTasks()
         })
 
-
         homeViewModel.allTasksWithComments.observe(this, Observer {
-            Log.i(javaClass.simpleName, it.toString())
             SyncDataToFirebase(it)
         })
 
@@ -98,12 +97,14 @@ class HomeActivity : AppCompatActivity(R.layout.activity_home), TaskAdapter.Inte
         extras?.let {
             val userUid = it.getString(Constants.UID)
             userUid?.let {
-                //toast(it)
-                database.child(Constants.USERS).child(userUid).setValue(tasksList).addOnCompleteListener {
-                    if(it.isSuccessful){ toast("done") }
-                    toast(it.result.toString())
-                    toast(it.exception?.message.toString())
-                }
+                showLoading()
+                database.child(Constants.USERS).child(userUid).setValue(tasksList)
+                    .addOnCompleteListener {
+                        if (it.isSuccessful) {
+                            stopLoading()
+                            toast(resources.getString(R.string.sync_to_database))
+                        }
+                    }
             }
         }
 
@@ -175,13 +176,13 @@ class HomeActivity : AppCompatActivity(R.layout.activity_home), TaskAdapter.Inte
         Log.i(javaClass.simpleName, item.toString())
         Navigation.goToDetailsActivity(this, item)
     }
+
     override fun onCheckSelected(btn: CompoundButton, isDone: Boolean, item: TaskTable) {
         val newItem = TaskTable(item.id, item.title, item.date, isDone, item.difficulty)
         homeViewModel.updateDoneTask(newItem)
-        onResume()
     }
+
     override fun onIndicatorChecked(position: Int, item: TaskTable) {
         homeViewModel.updatePeriorityTask(item.id, position)
-        onResume()
     }
 }

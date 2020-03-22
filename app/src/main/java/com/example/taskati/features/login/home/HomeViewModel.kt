@@ -24,27 +24,33 @@ class HomeViewModel(var homeRepo: IHome) : ViewModel() {
         get() = _allTasksWithComments
 
 
-    private val _taskSaved = MutableLiveData<Boolean>()
-    val taskSaved: LiveData<Boolean>
-        get() = _taskSaved
+    private val _taskUpdated = MutableLiveData<Boolean>()
+    val taskUpdated: LiveData<Boolean>
+        get() = _taskUpdated
+
+    private val _error = MutableLiveData<String>()
+    val Error: LiveData<String>
+        get() = _error
 
 
     fun updatePeriorityTask(userId: Int, periority: Int) {
         launchDataLoad(execution = {
             homeRepo.updatePeriorityTask(userId, periority)
-            Log.i(javaClass.simpleName, "Updated Indicator")
+            _taskUpdated.postValue(true)
         }, errorReturned = {
-            Log.i(javaClass.simpleName, it.message)
+            _taskUpdated.postValue(false)
+            _error.postValue(it.message)
         })
 
     }
 
-    fun updateDoneTask(doneTask:TaskTable) {
+    fun updateDoneTask(doneTask: TaskTable) {
         launchDataLoad(execution = {
             homeRepo.updateDoneTask(doneTask)
-            Log.i(javaClass.simpleName, "Updated ")
+            _taskUpdated.postValue(true)
         }, errorReturned = {
-            Log.i(javaClass.simpleName, it.message)
+            _taskUpdated.postValue(false)
+            _error.postValue(it.message)
         })
     }
 
@@ -53,17 +59,17 @@ class HomeViewModel(var homeRepo: IHome) : ViewModel() {
         launchDataLoad(execution = {
             _tasksResponse.postValue(homeRepo.getTasks())
         }, errorReturned = {
-            Log.i(javaClass.simpleName, it.message)
+            _error.postValue(it.message)
         })
     }
 
     fun saveTask(task: TaskTable) {
         launchDataLoad(execution = {
             homeRepo.saveToDatabase(task)
-            _taskSaved.postValue(true)
-            Log.i(javaClass.simpleName, "saved")
+            _taskUpdated.postValue(true)
         }, errorReturned = {
-            Log.i(javaClass.simpleName, it.message)
+            _taskUpdated.postValue(false)
+            _error.postValue(it.message)
         })
     }
 
@@ -71,9 +77,8 @@ class HomeViewModel(var homeRepo: IHome) : ViewModel() {
         launchDataLoad(execution = {
             homeRepo.getUsersWithComments()
             _allTasksWithComments.postValue(homeRepo.getUsersWithComments())
-            Log.i(javaClass.simpleName, "get comments")
         }, errorReturned = {
-            Log.i(javaClass.simpleName, it.message)
+            _error.postValue(it.message)
         })
     }
 

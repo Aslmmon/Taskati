@@ -1,22 +1,32 @@
 package com.example.taskati.features.login.details
 
+import android.app.DatePickerDialog
+import android.app.Dialog
+import android.content.Context
 import android.os.Bundle
 import android.util.Log
+import android.view.ContextMenu
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.DatePicker
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.DividerItemDecoration
 import com.example.taskati.R
 import com.example.taskati.common.Constants
 import com.example.taskati.common.bases.setSafeOnClickListener
 import com.example.taskati.common.bases.showAlertDialog
+import com.example.taskati.common.bases.showDatePickerDialog
 import com.example.taskati.common.data.db.TaskTable
 import com.example.taskati.common.data.db.comments_table.CommentsTable
 import com.example.taskati.features.login.details.adapter.CommentsAdapter
+import com.google.android.material.datepicker.MaterialDatePicker
 import kotlinx.android.synthetic.main.activity_details.*
+import org.jetbrains.anko.support.v4.ctx
 import org.jetbrains.anko.toast
 import org.koin.android.viewmodel.ext.android.viewModel
+import java.util.*
 
 
 class DetailsActivity : AppCompatActivity(R.layout.activity_details), CommentsAdapter.Interaction {
@@ -39,10 +49,16 @@ class DetailsActivity : AppCompatActivity(R.layout.activity_details), CommentsAd
             getComments()
 
         }
+        tv_date.setOnClickListener() {
+            showDatePickerDialog { newDate ->
+                tv_date.text = newDate
+            }
+        }
+
 
 
         check_done.setOnCheckedChangeListener { buttonView, isChecked ->
-            val newItem = TaskTable(task.id,task.title,task.date,isChecked,task.difficulty)
+            val newItem = TaskTable(task.id, task.title, task.date, isChecked, task.difficulty)
             detailViewModel.updateDoneTask(newItem)
         }
         toggle_multi.setOnValueChangedListener { value ->
@@ -59,7 +75,7 @@ class DetailsActivity : AppCompatActivity(R.layout.activity_details), CommentsAd
         }
 
         detailViewModel.commentsResponse.observe(this, Observer {
-            Log.i(javaClass.simpleName,it.toString())
+            Log.i(javaClass.simpleName, it.toString())
             commentsAdapter.submitList(it[0].comments)
         })
 
@@ -73,10 +89,16 @@ class DetailsActivity : AppCompatActivity(R.layout.activity_details), CommentsAd
     private fun clearEditText() {
         et_add_comment.text?.clear()
     }
+
     private fun initRecycler() {
         rv_comments.apply {
             commentsAdapter = CommentsAdapter(this@DetailsActivity)
-            addItemDecoration(DividerItemDecoration(this@DetailsActivity,DividerItemDecoration.VERTICAL))
+            addItemDecoration(
+                DividerItemDecoration(
+                    this@DetailsActivity,
+                    DividerItemDecoration.VERTICAL
+                )
+            )
             adapter = commentsAdapter
         }
     }
@@ -101,7 +123,7 @@ class DetailsActivity : AppCompatActivity(R.layout.activity_details), CommentsAd
             R.id.action_delete -> showAlertDialog(resources.getString(R.string.alert_message)) {
                 detailViewModel.deleteTask(task)
                 finish()
-                }
+            }
             android.R.id.home -> finish()
         }
         return true
@@ -110,4 +132,5 @@ class DetailsActivity : AppCompatActivity(R.layout.activity_details), CommentsAd
     override fun onItemSelected(position: Int, item: CommentsTable) {
 
     }
+
 }
