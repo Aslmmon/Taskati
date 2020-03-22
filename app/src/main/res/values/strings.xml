@@ -10,6 +10,10 @@
 
     <string name="yes">YES</string>
     <string name="no">NO</string>
+    <string name="check_connection">Check Your Network Connection</string>
+    <string name="no_tasks">No Tasks Found</string>
+
+
 
 
     <string name="create_task_title">create Task</string>

@@ -17,6 +17,7 @@ import com.example.taskati.common.bases.showAlertDialog
 import com.example.taskati.common.data.db.TaskTable
 import com.example.taskati.common.model.UserWithComments
 import com.example.taskati.features.login.home.adapter.TaskAdapter
+import com.google.android.gms.tasks.Task
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.button.MaterialButton
 import com.google.firebase.database.DatabaseReference
@@ -96,18 +97,31 @@ class HomeActivity : AppCompatActivity(R.layout.activity_home), TaskAdapter.Inte
         val extras = intent.extras
         extras?.let {
             val userUid = it.getString(Constants.UID)
-            userUid?.let {
-                showLoading()
-                database.child(Constants.USERS).child(userUid).setValue(tasksList)
-                    .addOnCompleteListener {
-                        if (it.isSuccessful) {
-                            stopLoading()
-                            toast(resources.getString(R.string.sync_to_database))
-                        }
+            userUid?.let { user ->
+                if (Navigation.isNetworkAvailable(this)) {
+                    if(tasksList?.isEmpty()!!){
+                        toast(resources.getString(R.string.no_tasks))
+                        return
                     }
+                    showLoading()
+                    saveToFirebaseDatabase(user, tasksList)
+                }else toast(resources.getString(R.string.check_connection))
             }
         }
 
+    }
+
+    private fun saveToFirebaseDatabase(
+        userUid: String,
+        tasksList: List<UserWithComments>?
+    ): Task<Void> {
+        return database.child(Constants.USERS).child(userUid).setValue(tasksList)
+            .addOnCompleteListener {
+                if (it.isSuccessful) {
+                    stopLoading()
+                    toast(resources.getString(R.string.sync_to_database))
+                }
+            }
     }
 
     private fun initFirebase() {
@@ -183,7 +197,7 @@ class HomeActivity : AppCompatActivity(R.layout.activity_home), TaskAdapter.Inte
     }
 
     override fun onIndicatorChecked(position: Int, item: TaskTable) {
-        val newTask = TaskTable(item.id, item.title, item.date, item.isDone,position)
+        val newTask = TaskTable(item.id, item.title, item.date, item.isDone, position)
         homeViewModel.updateDoneTask(newTask)
 
     }

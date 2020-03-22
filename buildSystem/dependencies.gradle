@@ -108,7 +108,6 @@ ext {
             autoDimension       : "com.github.hantrungkien:AutoDimension:1.0.4",
             googleMaterialDesign: "com.google.android.material:material:1.1.0-alpha02",
             vector :"com.victor:lib:1.0.4"
-
     ]
     test = [
             // Dependencies for local unit tests
