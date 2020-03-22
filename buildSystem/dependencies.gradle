@@ -25,9 +25,6 @@ ext {
     def coroutinesVersion = '1.2.1'
 
 
-
-
-
     imageslibraries = [
             picasso : "com.squareup.picasso:picasso:$picassoVersion",
             hodenhof: "de.hdodenhof:circleimageview:${circleImage}",
@@ -107,16 +104,18 @@ ext {
     others = [
             autoDimension       : "com.github.hantrungkien:AutoDimension:1.0.4",
             googleMaterialDesign: "com.google.android.material:material:1.1.0-alpha02",
-            vector :"com.victor:lib:1.0.4"
+            vector              : "com.victor:lib:1.0.4",
+            lottie              : "com.airbnb.android:lottie:3.4.0",
+
     ]
     test = [
             // Dependencies for local unit tests
-            junit : "junit:junit:$junitVersion",
+            junit           : "junit:junit:$junitVersion",
             androidXTestCore: "androidx.test:core-ktx:$androidXTestCoreVersion",
-            roboElectric:  "org.robolectric:robolectric:$robolectricVersion",
-            kotlinRunner : "androidx.test.ext:junit-ktx:$androidXTestExtKotlinRunnerVersion",
-            hamcrest : "org.hamcrest:hamcrest-all:$hamcrestVersion",
-            coreTesting : "androidx.arch.core:core-testing:$archTestingVersion",
-            coroutineTest : "org.jetbrains.kotlinx:kotlinx-coroutines-test:$coroutinesVersion"
+            roboElectric    : "org.robolectric:robolectric:$robolectricVersion",
+            kotlinRunner    : "androidx.test.ext:junit-ktx:$androidXTestExtKotlinRunnerVersion",
+            hamcrest        : "org.hamcrest:hamcrest-all:$hamcrestVersion",
+            coreTesting     : "androidx.arch.core:core-testing:$archTestingVersion",
+            coroutineTest   : "org.jetbrains.kotlinx:kotlinx-coroutines-test:$coroutinesVersion"
     ]
 }

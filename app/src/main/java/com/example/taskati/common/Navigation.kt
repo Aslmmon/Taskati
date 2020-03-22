@@ -5,6 +5,7 @@ import android.content.Context
 import android.content.Intent
 import android.net.ConnectivityManager
 import com.example.taskati.common.data.db.TaskTable
+import com.example.taskati.features.login.LoginActivity
 import com.example.taskati.features.login.details.DetailsActivity
 import com.example.taskati.features.login.home.HomeActivity
 
@@ -17,6 +18,11 @@ object Navigation {
     fun goToHomeActivity(ctx: Context,uid:String) {
         val intent = Intent(ctx, HomeActivity::class.java)
         intent.putExtra(Constants.UID,uid)
+        ctx.startActivity(intent)
+        (ctx as Activity).finish()
+    }
+    fun goToLoginActivity(ctx: Context) {
+        val intent = Intent(ctx, LoginActivity::class.java)
         ctx.startActivity(intent)
         (ctx as Activity).finish()
     }

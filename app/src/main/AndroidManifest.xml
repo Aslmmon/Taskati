@@ -10,17 +10,18 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity
-            android:name=".features.login.details.DetailsActivity"
-            android:parentActivityName=".features.login.home.HomeActivity" />
-        <activity
-            android:name=".features.login.home.HomeActivity" />
-        <activity android:name=".features.login.LoginActivity">
+        <activity android:name=".features.login.splash.SplashActivity"
+            android:theme="@style/Theme.MaterialComponents.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".features.login.details.DetailsActivity"
+            android:parentActivityName=".features.login.home.HomeActivity" />
+        <activity android:name=".features.login.home.HomeActivity" />
+        <activity android:name=".features.login.LoginActivity"/>
     </application>
 
 </manifest>

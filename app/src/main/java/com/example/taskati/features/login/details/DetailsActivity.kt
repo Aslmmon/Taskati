@@ -71,10 +71,12 @@ class DetailsActivity : AppCompatActivity(R.layout.activity_details), CommentsAd
             getComments()
         })
         iv_send_btn.setSafeOnClickListener {
-            val comment = et_add_comment.text.toString()
-            val commentTable = CommentsTable(0, task.id, comment)
-            detailViewModel.saveComments(commentTable)
-            clearEditText()
+            val comment = et_add_comment.text?.trim().toString()
+            if(comment.isNotEmpty()) {
+                val commentTable = CommentsTable(0, task.id, comment)
+                detailViewModel.saveComments(commentTable)
+                clearEditText()
+            }else toast("empty Message")
         }
 
         detailViewModel.commentsResponse.observe(this, Observer {

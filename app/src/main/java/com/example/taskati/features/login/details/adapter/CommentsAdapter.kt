@@ -1,5 +1,6 @@
 package com.example.taskati.features.login.details.adapter
 
+import android.annotation.SuppressLint
 import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
@@ -59,11 +60,12 @@ class CommentsAdapter(private val interaction: Interaction? = null) :
         private val interaction: Interaction?
     ) : RecyclerView.ViewHolder(itemView) {
 
+        @SuppressLint("SetTextI18n")
         fun bind(item: CommentsTable) = with(itemView) {
             itemView.setOnClickListener {
                 interaction?.onItemSelected(adapterPosition, item)
             }
-            itemView.tv_comment.text = item.comments
+            itemView.tv_comment.text = "\u25CF ${item.comments}"
 
         }
     }
