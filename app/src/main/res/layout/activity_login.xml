@@ -34,5 +34,5 @@
         app:layout_constraintStart_toStartOf="@id/til_username"
         app:layout_constraintTop_toBottomOf="@id/til_username" />
 
-
+    <include layout="@layout/loading" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -4,6 +4,7 @@ apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 apply from: '../buildSystem/dependencies.gradle'
 apply plugin: 'com.google.gms.google-services'
+//apply plugin: 'com.google.gms.google-services'
 
 
 android {
@@ -11,7 +12,7 @@ android {
     buildToolsVersion "29.0.3"
 
     defaultConfig {
-        applicationId "com.example.taskati"
+        applicationId "com.tasks.taskati"
         minSdkVersion 16
         targetSdkVersion 29
         versionCode 1
@@ -53,7 +54,6 @@ dependencies {
     implementation "androidx.room:room-ktx:2.2.5"
     implementation "androidx.room:room-runtime:2.2.5"
     kapt "androidx.room:room-compiler:2.2.5"
-
 
 
 }
