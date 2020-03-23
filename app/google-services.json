@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "441411447467",
+    "firebase_url": "https://taskati-959d0.firebaseio.com",
+    "project_id": "taskati-959d0",
+    "storage_bucket": "taskati-959d0.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:441411447467:android:c228e98230c1226a9565ee",
+        "android_client_info": {
+          "package_name": "com.tasks.taskati"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "441411447467-39qej79gbum1uc91g9sr1aai1ciutmnu.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.tasks.taskati",
+            "certificate_hash": "575d90bc5191c58ebd1d0652f450007c7f2abe66"
+          }
+        },
+        {
+          "client_id": "441411447467-73cqd39b5g7elbpcus8bpq67ccepuadi.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBaXW6SQPVJNrXeSUS0hE6m6O71JV4NYlw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "441411447467-73cqd39b5g7elbpcus8bpq67ccepuadi.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
