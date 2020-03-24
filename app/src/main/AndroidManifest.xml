@@ -10,7 +10,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name="com.tasks.taskati.features.login.splash.SplashActivity"
+        <activity android:name="com.tasks.taskati.features.splash.SplashActivity"
             android:theme="@style/Theme.MaterialComponents.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -18,9 +18,9 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.tasks.taskati.features.login.details.DetailsActivity"
-            android:parentActivityName="com.tasks.taskati.features.login.home.HomeActivity" />
-        <activity android:name="com.tasks.taskati.features.login.home.HomeActivity" />
+            android:name="com.tasks.taskati.features.details.DetailsActivity"
+            android:parentActivityName="com.tasks.taskati.features.home.HomeActivity" />
+        <activity android:name="com.tasks.taskati.features.home.HomeActivity" />
         <activity android:name="com.tasks.taskati.features.login.LoginActivity"/>
     </application>
 

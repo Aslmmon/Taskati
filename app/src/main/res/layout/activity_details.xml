@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:mstb="http://schemas.android.com/apk/res-auto"
-    tools:context=".features.login.details.DetailsActivity">
+    tools:context=".features.details.DetailsActivity">
 
 
     <com.tasks.taskati.common.custom.CustomText

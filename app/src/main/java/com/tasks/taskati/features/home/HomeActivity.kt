@@ -1,4 +1,4 @@
-package com.tasks.taskati.features.login.home
+package com.tasks.taskati.features.home
 
 import android.os.Bundle
 import android.util.Log
@@ -16,7 +16,7 @@ import com.tasks.taskati.common.bases.setSafeOnClickListener
 import com.tasks.taskati.common.bases.showAlertDialog
 import com.tasks.taskati.common.data.db.TaskTable
 import com.tasks.taskati.common.model.UserWithComments
-import com.tasks.taskati.features.login.home.adapter.TaskAdapter
+import com.tasks.taskati.features.home.adapter.TaskAdapter
 import com.google.android.gms.tasks.Task
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.button.MaterialButton

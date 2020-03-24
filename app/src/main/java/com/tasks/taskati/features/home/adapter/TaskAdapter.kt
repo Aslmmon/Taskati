@@ -1,4 +1,4 @@
-package com.tasks.taskati.features.login.home.adapter
+package com.tasks.taskati.features.home.adapter
 
 import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater

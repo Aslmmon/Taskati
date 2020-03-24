@@ -1,4 +1,4 @@
-package com.tasks.taskati.features.login.details.adapter
+package com.tasks.taskati.features.details.adapter
 
 import android.annotation.SuppressLint
 import androidx.recyclerview.widget.RecyclerView

@@ -1,4 +1,4 @@
-package com.tasks.taskati.features.login.home
+package com.tasks.taskati.features.home
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -7,7 +7,6 @@ import com.tasks.taskati.common.Repo.HomeRepo.IHome
 import com.tasks.taskati.common.bases.launchDataLoad
 import com.tasks.taskati.common.data.db.TaskTable
 import com.tasks.taskati.common.model.UserWithComments
-import com.google.android.gms.tasks.Task
 
 class HomeViewModel(var homeRepo: IHome) : ViewModel() {
 

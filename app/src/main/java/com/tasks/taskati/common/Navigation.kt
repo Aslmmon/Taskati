@@ -6,8 +6,8 @@ import android.content.Intent
 import android.net.ConnectivityManager
 import com.tasks.taskati.common.data.db.TaskTable
 import com.tasks.taskati.features.login.LoginActivity
-import com.tasks.taskati.features.login.details.DetailsActivity
-import com.tasks.taskati.features.login.home.HomeActivity
+import com.tasks.taskati.features.details.DetailsActivity
+import com.tasks.taskati.features.home.HomeActivity
 
 object Navigation {
 

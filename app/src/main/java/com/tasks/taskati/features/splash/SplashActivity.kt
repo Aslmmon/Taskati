@@ -1,4 +1,4 @@
-package com.tasks.taskati.features.login.splash
+package com.tasks.taskati.features.splash
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle

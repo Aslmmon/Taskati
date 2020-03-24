@@ -1,4 +1,4 @@
-package com.tasks.taskati.features.login.details
+package com.tasks.taskati.features.details
 
 import android.util.Log
 import androidx.lifecycle.LiveData

@@ -1,4 +1,4 @@
-package com.tasks.taskati.features.login.details
+package com.tasks.taskati.features.details
 
 import android.os.Bundle
 import android.util.Log
@@ -14,7 +14,7 @@ import com.tasks.taskati.common.bases.showAlertDialog
 import com.tasks.taskati.common.bases.showDatePickerDialog
 import com.tasks.taskati.common.data.db.TaskTable
 import com.tasks.taskati.common.data.db.comments_table.CommentsTable
-import com.tasks.taskati.features.login.details.adapter.CommentsAdapter
+import com.tasks.taskati.features.details.adapter.CommentsAdapter
 import kotlinx.android.synthetic.main.activity_details.*
 import org.jetbrains.anko.toast
 import org.koin.android.viewmodel.ext.android.viewModel
