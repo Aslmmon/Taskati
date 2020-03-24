@@ -2,25 +2,28 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
+
+
     <item
         android:id="@+id/action_settings"
         android:icon="@drawable/ic_filter"
-        android:orderInCategory="1"
+        android:orderInCategory="2"
         android:title="@string/filter_menu"
         app:showAsAction="always">
-
         <menu>
-
             <item
                 android:id="@+id/action_done_tasks"
                 android:icon="@drawable/ic_done"
                 android:title="@string/completed_tasks_menu_title" />
-
             <item
                 android:id="@+id/action_all_tasks"
                 android:icon="@drawable/ic_select_all"
                 android:title="@string/all_tasks" />
 
+            <item
+                android:id="@+id/action_sign_out"
+                android:icon="@drawable/ic_exit"
+                android:title="@string/sign_out_title" />
         </menu>
     </item>
 
@@ -28,6 +31,7 @@
         android:id="@+id/action_sync"
         android:icon="@drawable/ic_sync"
         android:title="@string/filter_menu"
+        android:orderInCategory="1"
         app:showAsAction="ifRoom">
 
     </item>

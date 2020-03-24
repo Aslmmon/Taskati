@@ -34,5 +34,16 @@
         app:layout_constraintStart_toStartOf="@id/til_username"
         app:layout_constraintTop_toBottomOf="@id/til_username" />
 
+    <com.google.android.material.button.MaterialButton
+        android:layout_width="0dp"
+        android:id="@+id/btn_sign_up"
+        android:layout_height="wrap_content"
+        android:text="@string/sign_up_title"
+        android:backgroundTint="@color/white"
+        android:textColor="@color/colorPrimary"
+        app:layout_constraintStart_toStartOf="@id/btn_login"
+        app:layout_constraintTop_toBottomOf="@id/btn_login"
+        app:layout_constraintEnd_toEndOf="@id/btn_login"
+        />
     <include layout="@layout/loading" />
 </androidx.constraintlayout.widget.ConstraintLayout>

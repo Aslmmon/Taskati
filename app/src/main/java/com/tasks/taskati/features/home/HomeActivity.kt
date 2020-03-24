@@ -20,6 +20,7 @@ import com.tasks.taskati.features.home.adapter.TaskAdapter
 import com.google.android.gms.tasks.Task
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.button.MaterialButton
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import kotlinx.android.synthetic.main.activity_home.*
@@ -35,6 +36,8 @@ class HomeActivity : AppCompatActivity(R.layout.activity_home), TaskAdapter.Inte
 
     private val homeViewModel: HomeViewModel by viewModel()
     lateinit var taskAdapter: TaskAdapter
+    var auth = FirebaseAuth.getInstance()
+
     lateinit var doneList: List<TaskTable>
     private lateinit var database: DatabaseReference
     val df = SimpleDateFormat("dd-MMM-yyyy")
@@ -99,13 +102,13 @@ class HomeActivity : AppCompatActivity(R.layout.activity_home), TaskAdapter.Inte
             val userUid = it.getString(Constants.UID)
             userUid?.let { user ->
                 if (Navigation.isNetworkAvailable(this)) {
-                    if(tasksList?.isEmpty()!!){
+                    if (tasksList?.isEmpty()!!) {
                         toast(resources.getString(R.string.no_tasks))
                         return
                     }
                     showLoading()
                     saveToFirebaseDatabase(user, tasksList)
-                }else toast(resources.getString(R.string.check_connection))
+                } else toast(resources.getString(R.string.check_connection))
             }
         }
 
@@ -120,8 +123,7 @@ class HomeActivity : AppCompatActivity(R.layout.activity_home), TaskAdapter.Inte
                 if (it.isSuccessful) {
                     stopLoading()
                     toast(resources.getString(R.string.sync_to_database))
-                }
-                else {
+                } else {
                     stopLoading()
                     toast(it.exception?.message.toString())
                 }
@@ -186,6 +188,10 @@ class HomeActivity : AppCompatActivity(R.layout.activity_home), TaskAdapter.Inte
             }
             R.id.action_sync -> showAlertDialog(resources.getString(R.string.alert_message_sync)) {
                 homeViewModel.getAllUsersWithComments()
+            }
+            R.id.action_sign_out -> showAlertDialog(resources.getString(R.string.sign_out_message)){
+                auth.signOut()
+                Navigation.goToLoginActivityWithClearTasks(this)
             }
         }
         return true

@@ -26,6 +26,12 @@ object Navigation {
         ctx.startActivity(intent)
         (ctx as Activity).finish()
     }
+    fun goToLoginActivityWithClearTasks(ctx: Context) {
+        val intent = Intent(ctx, LoginActivity::class.java)
+        intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK
+        ctx.startActivity(intent)
+        (ctx as Activity).finish()
+    }
 
     fun goToDetailsActivity(ctx: Context,task:TaskTable) {
         val intent = Intent(ctx, DetailsActivity::class.java)

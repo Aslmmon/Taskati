@@ -1,15 +1,18 @@
 package com.tasks.taskati.features.login
 
-import androidx.appcompat.app.AppCompatActivity
+import android.app.Activity
 import android.os.Bundle
-import android.widget.Toast
+import android.view.inputmethod.InputMethodManager
+import androidx.appcompat.app.AppCompatActivity
+import com.google.firebase.auth.FirebaseAuth
 import com.tasks.taskati.R
 import com.tasks.taskati.common.Navigation
+import com.tasks.taskati.common.bases.hideKeyboard
 import com.tasks.taskati.common.bases.setSafeOnClickListener
-import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.activity_login.*
 import kotlinx.android.synthetic.main.loading.*
 import org.jetbrains.anko.toast
+
 
 class LoginActivity : AppCompatActivity(R.layout.activity_login) {
     private lateinit var auth: FirebaseAuth
@@ -19,9 +22,13 @@ class LoginActivity : AppCompatActivity(R.layout.activity_login) {
         initializeFireBase()
 
 
+
         btn_login.setSafeOnClickListener {
             val name = et_username.text.toString()
             signInWithEmailAndPassword(name)
+        }
+        btn_sign_up.setSafeOnClickListener {
+            toast("sign Up")
         }
 
 
@@ -29,6 +36,7 @@ class LoginActivity : AppCompatActivity(R.layout.activity_login) {
 
     private fun signInWithEmailAndPassword(name: String) {
         showLoading()
+        hideKeyboard()
         auth.signInWithEmailAndPassword("$name@gmail.com", "123456")
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
@@ -48,13 +56,14 @@ class LoginActivity : AppCompatActivity(R.layout.activity_login) {
         super.onStart()
         val currentUser = auth.currentUser
         currentUser?.let {
-            Navigation.goToHomeActivity(this,currentUser.uid)
+            Navigation.goToHomeActivity(this, currentUser.uid)
         }
     }
 
     private fun initializeFireBase() {
         auth = FirebaseAuth.getInstance()
     }
+
     private fun showLoading() {
         rotateloading.start()
     }
